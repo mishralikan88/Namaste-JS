@@ -1,0 +1,56 @@
+Pending concepts to learn
+=========================
+
+HARSHIT (go through below concepts by refering to the videos) (13 concepts)
+===========================================================================
+1. symbol , bigInt
+2. sort - comparator logic
+3. Timing events - setInterval(),clearInterval(),clearTimrout()
+4. ( 77.JS to 85.JS ) - proto ,protoType ,constructor function - 9 files 
+5. why getter and setter ? proof with example
+6. operator overloading , oops all concepts , (data abstraction,data hiding)
+7. use of static key word in JS
+8. generators , iterators , decorators 
+9. recursion
+10. Ajax (XMLHttprequest)
+11. (138.js to 144.js) - 7 files 
+12. (116.js to 129.js) - DOM manipulations - 14 files 
+13. Total 30 files 
+
+Revise all
+
+THAPA (11 concepts)
+====================
+1.NAN
+2.why console.log("is both the x and y are equal or not" + x == y ); // ...false ??
+3.prefix and post fix output questions and explanations
+4. Leap year logic
+5. IIFE
+6. Throttling , debouncing
+7. event delegation
+8. flattening arrays using flat 
+9. split Vs join use cases.
+10. Date and time 
+11. Round Ceil and floor 
+12. CORS
+
+https://www.youtube.com/watch?v=KGkiIBTq0y0
+13.44.03 >> 2 projects + JS concepts by Akshaya + Source code and notes
+Revise all
+
+
+Akshay
+======
+Revise all
+
+Extra
+=====
+1. Interview questions -additional concepts
+2. Practice a good project
+3. practice logical programs - problem solving skills
+4. practice output questions
+
+Revise all
+
+
+
