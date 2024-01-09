@@ -16,10 +16,13 @@ HARSHIT (go through below concepts by refering to the videos) (13 concepts)
 11. (138.js to 144.js) - 7 files 
 12. (116.js to 129.js) - DOM manipulations - 14 files 
 13. Total 30 files 
+14. const array  - push operation
+15. Dom manipulations
+
 
 Revise all
 
-THAPA (11 concepts)
+THAPA (13 concepts)
 ====================
 1.NAN
 2.why console.log("is both the x and y are equal or not" + x == y ); // ...false ??
@@ -29,10 +32,12 @@ THAPA (11 concepts)
 6. Throttling , debouncing
 7. event delegation
 8. flattening arrays using flat 
-9. split Vs join use cases.
-10. Date and time 
-11. Round Ceil and floor 
+9. sort array logic, ascending , descending , comparator 
+10. Date & time 
+11. Round, Ceil & floor 
 12. CORS
+13. DOM Manipulations
+
 
 https://www.youtube.com/watch?v=KGkiIBTq0y0
 13.44.03 >> 2 projects + JS concepts by Akshaya + Source code and notes

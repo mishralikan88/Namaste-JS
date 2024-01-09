@@ -5,7 +5,7 @@
 // alert("Welcome, to Complete JavaScript course");
 // console.log('Welcome, to complete JavaScript Course');
 
-
+   
 
 /**** Section 2👉 Code Editor for writing JS ****/
 
@@ -159,10 +159,10 @@
 // var x = 5; 
 // var y = 5;
 
-// console.log("is both the x and y are equal or not" + x == y ); // ...false
+// console.log("is both the x and y are equal or not" + x == y ); // false
 
 // I will tell you when we will see es6
-// console.log(`Is both the x and y are equal : ${x == y}`);// ... true
+// console.log(`Is both the x and y are equal : ${x == y}`);//  true
 
 
 
@@ -918,7 +918,8 @@ b
 
 // String padding // gives padding to the strings like css padding.
 // Object.values() // returns obj prop values array.
-// Object.entries() // returns obj props and values with array pairs within the array.fromEntries() does the reverse. from array of arrays back to the object.
+// Object.entries() // returns obj props and values with array pairs within the array.fromEntries() does the reverse. 
+// from array of arrays back to the object.
 
 // const message = "my name is vinod";
 // console.log(message);
@@ -2147,7 +2148,7 @@ b
 // of the potentially visible (or better yet: rendered) 
 // document object model/DOM.
   
-
+  
 // 2️⃣ Where in the DOM we need to refer the document, 
 // if we want to use the document object, methods or properties
 // For example

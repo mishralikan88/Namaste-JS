@@ -1,4 +1,4 @@
-// how to iterate object  for (x in objectName) or for (x of object.keys(objectName))
+// how to iterate object for (x in objectName) or for (x of object.keys(objectName))
 const person = {
   name: "harshit",
   age: 22,
