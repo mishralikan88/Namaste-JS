@@ -2,15 +2,15 @@
 
 let fruits = ["apple", "mango", "grapes", "banana"];
 
-// for(let i=0; i<=9;i++){
-//     console.log(i);
-// }
+for (let i = 0; i <= 9; i++) {
+    console.log(i);
+}
 
-// console.log(fruits.length);
-// console.log(fruits[fruits.length-2]);
+console.log(fruits.length); // 4
+console.log(fruits[fruits.length - 2]); // grapes
 
 let fruits2 = [];
-for(let i=0; i < fruits.length; i++){
+for (let i = 0; i < fruits.length; i++) {
     fruits2.push(fruits[i].toUpperCase());
 }
 

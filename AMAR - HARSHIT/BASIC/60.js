@@ -1,6 +1,6 @@
 // sort method 
 // ASCII TABLE 
-//char : ascii value
+// char : ascii value
 
 
 // '0' : 48
@@ -93,66 +93,99 @@
 // '}' : 125
 
 
-// sort  
+// sort  -
 
-// 5,9,1200, 400, 3000
-// 5, 9, 400, 1200, 3000 (expected)
+// The sort() method in JavaScript is used to sort the elements of an array in place and return the sorted array. By default, it converts elements to strings and sorts them in ascending order based on their UTF-16 code units.
 
-// ["5", "9", "1210", "410", "3000"] 
-// [53, 57, 49, 52, 51]
+// syntax - array.sort([compareFunction]);
 
-// const userNames = ['harshit', 'abcd', 'mohit', 'nitish', 'aabc', 'ABC', 'Harshit'];
-// userNames.sort();
-// console.log(userNames);
+// Parameters:
+// compareFunction (optional): A function that defines the sort order. If omitted, elements are sorted as strings.
 
-// const numbers = [5,9,1200, 410, 3000];
-// numbers.sort((a,b)=>{
-//     return b-a;
-// });
-// numbers.sort((a,b)=>a-b);
-// console.log(numbers);
 
-// 1200,410 
-// a-b ---> 790
-// a-b ---> postive (greater than 0) ---> b, a
-// 410 , 1200
+// Default Behavior:
+// Without a compareFunction, sort() converts elements to strings and compares their UTF-16 code units values, resulting in lexicographical (alphabetical) order.
 
-// a-b ---> negative ----> a,b
-// 5, 9 ---> -4 
-// price lowToHigh HighToLow 
+const numbers = [10, 1, 19, 2, 33, 4, 25];
+numbers.sort();
+console.log(numbers);  // Output: [1, 10, 19, 2, 25, 33, 4] (sorted as strings: "1", "10", "19", "2", "25", "33", "4")
+
+const userNames = ['harshit', 'abcd', 'mohit', 'nitish', 'aabc', 'ABC', 'Harshit'];
+userNames.sort();
+console.log(userNames); //  ['ABC', 'Harshit', 'aabc', 'abcd', 'harshit', 'mohit', 'nitish']
+
+// Using compareFunction:
+// A compareFunction allows you to specify the sort order. The function takes two arguments (a and b) and should return:
+
+// A negative number if a should be before b.
+// Zero if a and b are considered equal.
+// A positive number if a should be after b.
+
+
+const numbers1 = [5, 9, 1200, 410, 3000];
+console.log(numbers1)
+
+numbers1.sort((a, b) => b - a);     // Descending sort
+console.log(numbers1);              // [3000, 1200, 410, 9, 5]
+
+numbers1.sort((a, b) => a - b);     // Ascending sort
+console.log(numbers1);              // [5, 9, 410, 1200, 3000]
+
+
+
 const products = [
-    {productId: 1, produceName: "p1",price: 300 },
-    {productId: 2, produceName: "p2",price: 3000 },
-    {productId: 3, produceName: "p3",price: 200 },
-    {productId: 4, produceName: "p4",price: 8000 },
-    {productId: 5, produceName: "p5",price: 500 },
+    { productId: 1, produceName: "p1", price: 300 },
+    { productId: 2, produceName: "p2", price: 3000 },
+    { productId: 3, produceName: "p3", price: 200 },
+    { productId: 4, produceName: "p4", price: 8000 },
+    { productId: 5, produceName: "p5", price: 500 },
 ]
 
-// lowToHigh
-const lowToHigh = products.slice(0).sort((a,b)=>{
-    return a.price-b.price
+
+products.sort((a, b) => {
+    return a.price - b.price // Ascending sort
 });
 
-const highToLow = products.slice(0).sort((a,b)=>{
-    return b.price-a.price;
+console.log(products)
+
+
+products.sort((a, b) => {
+    return b.price - a.price; // Descending sort
 });
 
+console.log(products) // Mutates the original array . Both console will print descending array 
 
+
+// slice(0) creats a new array 
+
+const lowtoHigh = products.slice(0).sort((a, b) => {
+    return a.price - b.price // Ascending sort
+});
+
+console.log(lowtoHigh)
+
+
+const HighToLow = products.slice(0).sort((a, b) => {
+    return b.price - a.price; // Descending sort
+});
+
+console.log(HighToLow)
 
 const users = [
-    {firstName: "harshit", age: 23},
-    {firstName: "mohit", age: 21},
-    {firstName: "nitish", age: 22},
-    {firstName: "garima", age: 20},
+    { firstName: "harshit", age: 23 },
+    { firstName: "mohit", age: 21 },
+    { firstName: "nitish", age: 22 },
+    { firstName: "garima", age: 20 },
 ]
 
-
-users.sort((a,b)=>{
-    if(a.firstName > b.firstName){
-        return 1;
-    }else{
-        return -1;
+users.sort((a, b) => {
+    if (a.firstName > b.firstName) {
+        return 1;   // a should come after b
+    } else if (a.firstName < b.firstName) {
+        return -1;  // a should come before b
+    } else {
+        return 0;   // a and b are equal
     }
 });
 
-console.log(users);
+console.log(users); // users are inside of an array in firstName ascending sorted order.

@@ -1,4 +1,4 @@
-// objects inside array - Json
+// array of objects - Json
 // very useful in real world applications
 
 const users = [

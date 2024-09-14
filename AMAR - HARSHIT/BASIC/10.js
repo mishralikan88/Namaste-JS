@@ -1,4 +1,4 @@
-// template literals
+// template literals / strings
 
 let age = 22;
 let firstName = "harshit"

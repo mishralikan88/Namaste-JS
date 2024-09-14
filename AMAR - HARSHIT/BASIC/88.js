@@ -1,4 +1,7 @@
-// super
+// super -
+
+// In JavaScript, super is a keyword used within classes that extends another class (a subclass). It allows you to call methods and access properties from the parent class (superclass) within the subclass.
+
 class Animal {
   constructor(name, age) {
     this.name = name;
@@ -19,10 +22,11 @@ class Animal {
 }
 
 class Dog extends Animal {
-// child class constructor function initialises only the child specific properties and makes a super constructor call to initialise
-// parent class properties
+
+  // child class constructor function initialises only the child specific properties and makes a super constructor call to initialise parent class properties.
+
   constructor(name, age, speed) {
-    super(name, age); 
+    super(name, age);
     this.speed = speed;
   }
 
@@ -30,6 +34,6 @@ class Dog extends Animal {
     return `${this.name} is running at ${this.speed}kmph`;
   }
 }
-// object / instance
+// object or instance
 const tommy = new Dog("tommy", 3, 45);
 console.log(tommy.run());

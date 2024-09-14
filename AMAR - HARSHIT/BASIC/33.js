@@ -1,13 +1,13 @@
-// for of loop in array.
+// for-of loop in array.
 
 const fruits = ["apple", "mango", "grapes", "fruit4", "fruit5"];
 const fruits2 = [];
 
-// for(let fruit of fruits){         // fruit is an element of the array.
-//     fruits2.push(fruit.toUpperCase());
-// }
-// console.log(fruits2);
+for (let fruit of fruits) {         // fruit is an element of the array.
+    fruits2.push(fruit.toUpperCase());
+}
+console.log(fruits2);
 
-for(let i = 0; i<fruits.length; i++){
+for (let i = 0; i < fruits.length; i++) {
     console.log(fruits[i]);
 }

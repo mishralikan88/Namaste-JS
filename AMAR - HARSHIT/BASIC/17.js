@@ -1,4 +1,4 @@
-// nested if else
+// Nested if else
 
 // winning number 19 
 
@@ -7,14 +7,14 @@
 // 20 too high 
 
 let winningNumber = 19;
-let userGuess = +prompt("Guess a number");
+let userGuess = +prompt("Guess a number"); // prompt returns a string
 
-if(userGuess === winningNumber){
+if (userGuess === winningNumber) {
     console.log("Your guess is right!!");
-}else{
-    if(userGuess < winningNumber){
+} else {
+    if (userGuess < winningNumber) {
         console.log("too low !!!");
-    }else{
+    } else {
         console.log("too high !!!");
     }
 }

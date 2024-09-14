@@ -11,6 +11,6 @@ let firstName = "harshitdfjakldsfdf";
 
 console.log(firstName.length);
 
-console.log(firstName[firstName.length-1]);
+console.log(firstName[firstName.length-1]); // f
 
 // last Index : length - 1 

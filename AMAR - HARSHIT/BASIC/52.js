@@ -1,4 +1,4 @@
-// rest parameters 
+// rest parameter - 
 
 // function myFunc(a,b,...c){ // a and b are values where as c receives values inside of an array and ... denotes rest operator.
 //     console.log(`a is ${a}`);

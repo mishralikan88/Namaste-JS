@@ -1,12 +1,15 @@
-// rules for naming variables 
+// Rules for naming variables 
 
 // you cannot start with number 
 // example :- 
 // 1value (invalid)
 // value1 (valid)
 
-var value1 = 2;
-console.log(value1);
+// var value1 = 2;
+// console.log(value1,typeof value1);
+// console.log(value1*10);
+// console.log(value1**10); // '**' is power . 
+// console.log(value1**0.5);  // sqrt
 
 // you can use only undersore _ or dollar symbol 
 // first_name (valid)

@@ -24,34 +24,70 @@
 // }
 
 
-let day = 9;
+// let day = 5;
 
-switch(day){ 
-    case 0:
+// switch(day){ 
+//     case 0: // if day = 0 , execute case 0 stmts until a "break" is encounted
+//         console.log("Sunday");
+//         break; // Breaks the flow and transfers control outside of the switch statement.
+//     case 1: // if day = 1
+//         console.log("Monday");
+//         break;
+//     case 2: // if day = 2
+//         console.log("Tuesday");
+//         break;
+//     case 3: // if day = 3
+//         console.log("Wednesday");
+//         break;
+//     case 4: // if day = 4
+//         console.log("Thrusday");
+//         break;
+//     case 5: // if day = 5
+//         console.log("Friday");
+//         break;
+//     case 6: // if day = 6
+//         console.log("Saturday");
+//         break;
+//     default: // Most like an else block.If any of the conditions are not matched this block code will execute.
+//         console.log("Invalid Day");
+// }
+
+
+let dayx = 1;
+
+switch(dayx){ 
+    case 0: 
         console.log("Sunday");
-        break; 
-    case 1:
+    case 1: 
         console.log("Monday");
-        break;
-    case 2:
+    case 2: 
         console.log("Tuesday");
-        break;
-    case 3:
+    case 3: 
         console.log("Wednesday");
         break;
-    case 4:
+    case 4: 
         console.log("Thrusday");
         break;
-    case 5:
+    case 5: 
         console.log("Friday");
         break;
-    case 6:
+    case 6: 
         console.log("Saturday");
         break;
     default:
         console.log("Invalid Day");
 }
 
+// Monday 
+// Tuesday
+// Wednesday .
+
+// Why? We haven't used break inside case 1 and case 2. Inside case 3, the JavaScript engine encounters break 
+// and exits the switch statement. As soon as the JavaScript engine encounters break inside case 3, all the console
+// messages are printed.
+
+
+// switch syntax -
 
 // switch(varName){
     

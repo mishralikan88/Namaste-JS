@@ -1,3 +1,4 @@
+// function execution context
 
 console.log(myFunction);
 

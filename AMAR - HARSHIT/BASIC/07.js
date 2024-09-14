@@ -1,20 +1,30 @@
-// trim() 
-// toUpperCase()
-// toLowerCase()
+
+// trim() // Trims white spaces from the begining and end of the string
+// toUpperCase() // Upper case string
+// toLowerCase() // Lower case string
 // slice()
 
-let firstName = "harshit";
+// When these methods are applied to a string , this returns a modified string.
+// The original string will not be mutated/changed.Thats why strings are immutable.
 
-// console.log(firstName.length);
-// firstName = firstName.trim(); // "harshit"
-// console.log(firstName)
-// console.log(firstName.length);
-// firstName = firstName.toUpperCase();
-// firstName = firstName.toLowerCase();
-// console.log(firstName);
+let firstName = " harshit ";
 
-// start index 
-// end index
+console.log(firstName.length);
+firstNameTrim = firstName.trim(); // firstName.trim() returns a new string "harshit". ( strings are immutable )
+console.log(firstNameTrim)
+console.log(firstName.length);
+firstNameUpper = firstName.toUpperCase();
+console.log(firstNameUpper)
+firstNameLower = firstName.toLowerCase();
+console.log(firstNameLower);
 
-let newString = firstName.slice(1); 
-console.log(newString);
+
+// start index (inclusive)
+// end index (exclusive)
+// stringName.slice(start,end)
+
+let newString1 = firstName.slice(0,4); 
+console.log(newString1);
+
+let newString2 = firstName.slice(1); // end index - string endindex + 1  (optional)
+console.log(newString2);

@@ -1,4 +1,5 @@
-// arrow functions
+// Arrow functions
+
 // const singHappyBirthday = function(){
 //     console.log("happy birthday to you ......");
 // }
@@ -13,14 +14,15 @@ const sumThreeNumbers = (number1, number2, number3) => {
     return number1 + number2 + number3;
 }
 
-const ans = sumThreeNumbers(2,3,4);
+const ans = sumThreeNumbers(2, 3, 4);
 console.log(ans);
 
-// const isEven = function(number){
+// const isEven = function (number) {
 //     return number % 2 === 0;
-// } 
+// }
 
-// In function body we have single statement. we can remove return and curly brances {} .The above code turns into.
+// In a function body if we have a single statement then we can remove return and curly brances {} .
+// The above code turns into - 
 
 const isEven = number => number % 2 === 0;
 
@@ -33,8 +35,8 @@ console.log(firstChar("harshit"));
 
 
 const findTarget = (array, target) => {
-    for(let i = 0; i<array.length; i++){
-        if(array[i]===target){
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === target) {
             return i;
         }
     }

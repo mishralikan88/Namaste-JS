@@ -1,7 +1,7 @@
-// function returning function 
+// Function returning Function 
 
-function myFunc(){
-    function hello(){
+function myFunc() {
+    function hello() {
         return "hello world"
     }
     return hello;

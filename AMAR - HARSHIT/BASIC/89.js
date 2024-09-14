@@ -1,4 +1,4 @@
-// same method in subclass
+// Method overriding
 class Animal {
   constructor(name, age) {
     this.name = name;

@@ -1,0 +1,63 @@
+
+// (0.00 - 23.00) of the video - https://www.youtube.com/watch?v=chx9Rs41W6g&t=2719s
+
+// Limitations and Considerations
+// Shallow Copy: Object.assign() performs a shallow copy of properties.This means it only copies the top - level properties, not nested objects or arrays.
+
+//     Example:
+
+// const original = { name: 'John', details: { age: 30, country: 'USA' } };
+// const clone = Object.assign({}, original);
+
+// console.log(clone.details === original.details); // Output: true
+// In this example, details is a nested object.The clone shares the same reference to the details object as the original, meaning changes to details in the clone will also affect the original.
+
+// Property Attributes: Object.assign() only copies enumerable and own properties from the source objects.Properties that are non - enumerable or inherited from prototypes are not copied.
+
+//     Example:
+
+// const source = Object.create({}, {
+//     inheritedProp: { value: 'inherited', enumerable: false }
+// });
+// source.ownProp = 'own';
+
+// const target = Object.assign({}, source);
+
+// console.log(target.ownProp); // Output: 'own'
+// console.log(target.inheritedProp); // Output: undefined
+// In this example, inheritedProp is not copied to the target object because it is non - enumerable.
+
+// Prototype Chain: Object.assign() does not clone the prototype chain.It only copies properties directly from the source objects, and any prototype chain properties are not included.
+
+//     Example:
+
+// function Person(name) {
+//     this.name = name;
+// }
+// Person.prototype.greet = function () {
+//     return `Hello, ${this.name}`;
+// };
+
+// const person = new Person('John');
+// const clone = Object.assign({}, person);
+
+// console.log(clone.greet); // Output: undefined
+// In this example, greet is a method on the prototype chain, so it is not copied to the clone object.
+
+//     Summary
+// Basic Cloning: Object.assign() creates a shallow copy of an object.
+// Merging Objects: It can merge properties from multiple source objects.
+// Shallow Copy: Only top - level properties are copied; nested objects are not deeply cloned.
+// Property Attributes: Only enumerable and own properties are copied.
+// Prototype Chain: Properties from the prototype chain are not copied.
+// For deep cloning or more complex scenarios, consider using libraries like Lodash (_.cloneDeep()) or structured cloning techniques, such as JSON serialization:
+
+
+// const deepClone = JSON.parse(JSON.stringify(original));
+// This method creates a deep copy but has limitations, such as not handling functions or non - serializable properties.
+
+
+// different ways to create object - consider all cases
+
+
+
