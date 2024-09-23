@@ -1,67 +1,71 @@
-// get multiple elements using getElements by class name 
-// get multiple elements items using querySelectorAll
-// array like object ---> indexing, length property 
-// let navItems = document.getElementsByTagName("a"); // HTMLCollection
-// console.log(navItems);
+// HtmlCollection: 
+// HTMLCollection is live, meaning it automatically updates when the DOM changes.
+// Get all <a> elements from the document and store them in navItems (an HTMLCollection)
+let navItems = document.getElementsByTagName("a"); // HTMLCollection
+console.log(navItems); // Logs the HTMLCollection of all <a> elements
 
-// we can't use forEach method to iterate through HTMLCollection
-// simple for loop 
-// for of loop 
-// forEach 
+// We cannot use the forEach() method directly on an HTMLCollection.
+// We can, however, iterate over the HTMLCollection using for loop or for..of loop.
 
-// for(let i=0; i< navItems.length; i++){
-//     // console.log(navItems[i]);
-//     const navItem = navItems[i];
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
+// Using for loop to iterate through the HTMLCollection and style each item
+for (let i = 0; i < navItems.length; i++) {
+    const navItem = navItems[i]; // Access each <a> element
+    navItem.style.backgroundColor = "#fff"; // Set background color to white
+    navItem.style.color = "green"; // Set text color to green
+    navItem.style.fontWeight = "bold"; // Set font weight to bold
+}
 
-// }
+// Using for..of loop to iterate through HTMLCollection and style each item
+for (let navItem of navItems) {
+    navItem.style.backgroundColor = "#fff";
+    navItem.style.color = "green";
+    navItem.style.fontWeight = "bold";
+}
 
-// for(let navItem of navItems){
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
-// }
+// Since forEach() doesn't work on HTMLCollection, we need to convert it into an array.
+// Converting HTMLCollection into an array using Array.from()
+navItems = Array.from(navItems); // Now navItems is an array
+console.log(Array.isArray(navItems)); // true (Verifies the conversion)
 
+// Now we can use forEach() on the array to style each item
+navItems.forEach((navItem) => {
+    navItem.style.backgroundColor = "#fff";
+    navItem.style.color = "green";
+    navItem.style.fontWeight = "bold";
+});
 
-// we cant use forEach() in an HtmlCollection. We can convert this to array and the nto that array we can use forEach()
+// NodeList:
+// NodeList is static and does not update automatically when DOM changes.
+// Query all elements with class "nav-item" and store them in navItems (a NodeList)
+const navItemsList = document.querySelectorAll(".nav-item"); // NodeList
+console.log(navItemsList[1]); // Access the second <li> with class "nav-item"
 
-// navItems = Array.from(navItems); // htmlcolection => array
-// console.log(Array.isArray(navItems));
-// navItems.forEach((navItem)=>{
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
-// })
+navItems = document.querySelectorAll("a"); // Returns a NodeList of <a> elements
+console.log(Array.isArray(navItems)); // false (It's a NodeList, not an array)
 
-// console.log(Array.isArray(navItems)); // true
-// const navItems = document.querySelectorAll(".nav-item"); // NodeList
-// console.log(navItems[1]);
+// Using for loop to iterate through NodeList
+for (let i = 0; i < navItems.length; i++) {
+    const navItem = navItems[i];
+    navItem.style.backgroundColor = "#fff";
+    navItem.style.color = "green";
+    navItem.style.fontWeight = "bold";
+}
 
-// let navItems = document.querySelectorAll("a");
-// navItems = Array.from(navItems);
-// console.log(Array.isArray(navItems));
-// simple for loop 
-// for of loop 
-// forEach 
-// for(let i=0; i< navItems.length; i++){
-//     // console.log(navItems[i]);
-//     const navItem = navItems[i];
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
+// Using for..of loop to iterate through NodeList
+for (let navItem of navItems) {
+    navItem.style.backgroundColor = "#fff";
+    navItem.style.color = "green";
+    navItem.style.fontWeight = "bold";
+}
 
-// }
+// NodeList supports forEach(), so we can directly use it here to style each item
+navItems.forEach((navItem) => {
+    navItem.style.backgroundColor = "#fff";
+    navItem.style.color = "green";
+    navItem.style.fontWeight = "bold";
+});
+console.log(navItems); // Logs the NodeList
 
-// for(let navItem of navItems){
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
-// }
-// navItems.forEach((navItem)=>{
-//     navItem.style.backgroundColor = "#fff";
-//     navItem.style.color = "green";
-//     navItem.style.fontWeight = "bold";
-// })
-// console.log(navItems);
+// Converting NodeList into an array for more array-like methods
+navItems = Array.from(navItems); // NodeList => Array
+console.log(Array.isArray(navItems)); // true (Now it's an array)
