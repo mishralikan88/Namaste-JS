@@ -1,10 +1,11 @@
-// callback example 1
+// callback example - 1
 
 // setTimeout(function(){
 //     console.log("Timer")
 // },3000)
 
 // callback function y doesn't get called immidiately. It is x's responsibility to call the function y .Thats why the name of call back function is call back.
+
 // function x(y){
 //     console.log("x")
 //     y()
@@ -13,10 +14,9 @@
 //     console.log("y")
 // })
 
-
 // console.log("Random value:",Math.floor(Math.random()*100))
 
-// callback example 2
+// callback example - 2
 
 function printStr(str, cb) {
     setTimeout(() => {
@@ -25,11 +25,6 @@ function printStr(str, cb) {
     }, Math.floor(Math.random() * 100) + 1)
 }
 
-// function printAll() {
-//     printStr("A", () => { console.log("Hello")})
-
-// }
-// printAll()
 
 function printCallbacks() {
     printStr("A", () => {

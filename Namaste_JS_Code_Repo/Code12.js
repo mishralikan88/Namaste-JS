@@ -6,6 +6,7 @@
 // a()
 
 
+
 // Function Expression - (Hoisting is restricted)
 // var b = function(){
 //     console.log("Hello")
@@ -14,9 +15,11 @@
 // console.log(b)
 
 
+
 // Anonymous Function
 // function(){
 // }
+
 
 
 // Named Function
@@ -24,27 +27,24 @@
 //     console.log("b called")
 // }
 // NamedFunction()
-
 // xyz() // xyz function is not available in global space. Hence it cannot be called.
 // Reference Error - xyz is not defined.
 
-// First Class Function / First Class Citizens  / Higher Order Function (HOF)
+
+
+// First-Class Function / First-Class Citizen / Higher-Order Function (HOF)
 
 // Example 1
-
 var b = function (param) {
     console.log(param)
 }
 b(function () { })
 
 // Example 2
-
 var b = function (param) {
     console.log(param)
 }
-
 function xyz(){}
-
 b(xyz)
 
 // Example 3

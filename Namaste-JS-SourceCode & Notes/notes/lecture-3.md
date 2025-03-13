@@ -12,11 +12,9 @@ function getName() {
 }
 ```
 
-* It should have been an outright error in many other languages, as it is not possible to even access something which is not even defined yet But in JS, We know that in memory creation phase it assigns undefined and puts the content of function to function's memory. And in code execution phase, it executes whatever is asked. Here, as code execution goes line by line and not after compiling, it could only print undefined and nothing else. This phenomenon, is not an error. However, if we remove var x = 7; then it gives error. Uncaught ReferenceError: x is not defined
+* In many other programming languages, this would result in an outright error because accessing something that is not yet defined is not allowed. However, in JavaScript, during the memory creation phase, variables declared with var are assigned undefined, and function declarations are stored in memory. During the code execution phase, JavaScript executes the code line by line. Since x was hoisted and initialized as undefined, it prints undefined instead of throwing an error. 
 
-* **Hoisting** is a concept which enables us to extract values of variables and functions even before initialising/assigning value without getting error and this is happening due to the 1st phase (memory creation phase) of the Execution Context.
-
-* So in previous lecture, we learnt that execution context gets created in two phase, so even before code execution, memory is created so in case of variable, it will be initialized as undefined while in case of function the whole function code is placed in the memory. Example:
+* However, if var x = 7; is removed, it results in 'Uncaught ReferenceError: x is not defined.'
 
 ```js
 getName(); // Namaste JavaScript
@@ -27,26 +25,42 @@ function getName(){
 }
 ```
 
-* Now let's observe a different example and try to understand the output.
+* Hoisting is a concept in JavaScript that allows variables and functions to be accessed before they are initialized or assigned a value without causing an error. This happens due to the memory creation phase of the Execution Context.
+
+
+In the previous lecture, we learned that the execution context is created in two phases. Even before the code executes, memory is allocated. For variables, this means they are initialized as undefined, while for functions, the entire function code is stored in memory.Now let's observe a different example and try to understand the output.
+
 ```js
-console.log(x) //x is not defined any where in the code . We get a error here as Not defined.
-getName(); // Uncaught TypeError: getName is not a function.Its a variable and undefined will be stored in memory creation phase . we get this error because we are calling undefined().
-console.log(getName);
+
+console.log(x); 
+// ❌ Error: Uncaught ReferenceError: x is not defined
+// Explanation: `x` is not declared anywhere in the code, so JavaScript throws a ReferenceError.
+
+getName(); 
+// ❌ Error: Uncaught TypeError: getName is not a function
+// Explanation: 
+// - `var getName;` is hoisted and initialized as `undefined` in the memory creation phase.
+// - Function expressions are NOT hoisted like function declarations.
+// - When we call `getName()`, we are actually calling `undefined()`, which results in a TypeError.
+
+console.log(getName); 
+// ✅ Output: undefined
+// Explanation: 
+// - `var getName;` is hoisted and set to `undefined` during memory creation.
+// - The actual function is assigned later during code execution.
+
 var getName = function () {
     console.log("Namaste JavaScript");
-}
-// Note - The function expression and Arrow functions cannot be hoisted.
+};
+// ✅ This is a function expression.
+// Note: Function expressions and arrow functions are hoisted differently. 
+// Only the variable (`getName`) is hoisted, not the function itself.
+
+
 ```
 
-<hr>
 
-Watch Live On Youtube below:
-
-<a href="https://www.youtube.com/watch?v=Fnlnw8uY6jo&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/Fnlnw8uY6jo/0.jpg" width="750"
-alt="Hoisting Youtube Link"/></a>
-
-
-// Execute below lines of code on console with debugging ON and check the Call stack.
+// Execute the code below in the console with debugging enabled and check the Call Stack.
 
 <!-- var x = 10;
 
@@ -57,3 +71,11 @@ function getName() {
 getName();
 console.log(x);
 console.log(getName); -->
+
+
+<hr>
+
+Watch Live On Youtube below:
+
+<a href="https://www.youtube.com/watch?v=Fnlnw8uY6jo&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/Fnlnw8uY6jo/0.jpg" width="750"
+alt="Hoisting Youtube Link"/></a>

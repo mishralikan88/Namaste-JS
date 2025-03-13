@@ -58,3 +58,16 @@ Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=iLWTnMzWtj4&t=1s&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/iLWTnMzWtj4/0.jpg" width="750"
 alt="How JS is executed & Call Stack Youtube Link"/></a>
+
+
+<!-- Debugging -->
+
+We have placed our breakpoint at the top of the code snippet.Even before a single line of code is executed, we can visually observe the memory creation phase, where variables are declared but initially assigned the value undefined.
+
+In the figure below, the variables n, square2, and square4 are declared but remain undefined. 
+
+![Execution Context Phase 2](../assets/1.jpg "Execution Context")
+
+As we step through the debugger, we can see these variables being assigned their actual values in real time. This occurs during the code execution phase.
+
+Currently, we are at the Global Execution Context level. As we step into the function invocation, we can visually observe the same process in the Function Execution Context.

@@ -2,11 +2,11 @@
 
 * The shortest JS program is an empty file. Even in this case, JS engine does a lot of things. It creates the GEC which has memory phase and the code execution phase.
 
-* JS engine creates something known as '**window**'. It is a global object for browser, which is created in the global space. It contains lots of functions and variables. These functions and variables can be accessed from anywhere in the program. JS engine also creates a **this** keyword, which points to the **window object** at the global level. So, in summary, along with GEC, a global object (window) and a this variable are created.
+* The JavaScript engine creates something known as the window object, which serves as the global object in a browser. It contains numerous functions and variables that can be accessed from anywhere in the program. The JavaScript engine also creates the this keyword, which, at the global level, refers to the window object. In summary, along with the Global Execution Context (GEC), a global object (window) and the this keyword are created.
 
-* In different engines, the name of global object changes. Window in browsers, but in nodeJS it is called something else. At global level, this === window
+* In different JavaScript engines, the name of the global object varies. In browsers, it is called window, while in Node.js, it has a different name. At the global level, the this keyword refers to the global object.
 
-* If we create any variable in the global scope, then the variables get attached to the global object.
+* If a variable is declared in the global scope, it becomes a property of the global object.
 
 eg:
 ```js

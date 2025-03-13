@@ -1,14 +1,13 @@
 # Episode 6 : undefined vs not defined in JS
 
-* In first phase (memory allocation) JS assigns each variable a placeholder called **undefined**.
+* During the memory allocation phase, JavaScript assigns a placeholder value called undefined to each variable.
+undefined means that memory has been allocated for the variable, but no value has been assigned yet.
 
-* **undefined** is when memory is allocated for the variable, but no value is assigned yet.
+* If a variable or object is not declared (i.e., it does not exist in memory) and an attempt is made to access it, JavaScript throws a ReferenceError: not defined.
 
-* If an object/variable is not even declared/found in memory allocation phase, and tried to access it then it is **Not defined**
+* Not defined ≠ Undefined
 
-* Not Defined !== Undefined
-
-> When variable is declared but not assigned value, its current value is **undefined**. But when the variable itself is not declared but called in code, then it is **not defined**. 
+* If a variable is declared but not assigned a value, its value is undefined. However, if the variable itself is not declared and is referenced in the code, it results in a not defined error.
 
 ```js
 console.log(x); // undefined
@@ -17,8 +16,8 @@ console.log(x); // 25
 console.log(a); // Uncaught ReferenceError: a is not defined
 ```
 
-* JS is a **loosely typed / weakly typed** language. It doesn't attach variables to any datatype. We can say *var a = 5*, and then change the value to boolean *a = true* or string *a = 'hello'* later on. 
-* **Never** assign *undefined* to a variable manually. Let it happen on it's own accord.
+* JavaScript is a loosely typed (weakly typed) language, meaning variables are not bound to a specific data type. For example, we can declare var a = 5, then later assign a = true (boolean) or a = 'hello' (string).
+Never manually assign undefined to a variable—let JavaScript handle it automatically.
 
 <hr>
 
