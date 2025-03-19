@@ -1,4 +1,4 @@
-// map
+// Map : 
 
 const array = [5, 1, 3, 2, 6]
 
@@ -30,8 +30,7 @@ console.log(array.myMap(double))
 console.log(array.map((x) => x.toString(2)))
 
 
-
-// Filter
+// Filter :
 
 const OriginalArray = [5, 1, 3, 2, 6]
 
@@ -52,6 +51,10 @@ function isOdd(num) {
 console.log(OriginalArray.myFilter(isOdd))
 
 // console.log(OriginalArray.filter((currentELement)=> currentELement % 2 !== 0))
+
+
+
+// Reduce :
 
 const reduceArray = [5, 1, 3, 2, 6]
 

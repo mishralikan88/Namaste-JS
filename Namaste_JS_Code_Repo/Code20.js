@@ -53,16 +53,18 @@ const fullName = users.map((user) => {
 console.log(fullName)
 
 // const usersAgeLessThanThirty = users.filter((user) => {
-//     return user.age < 30
+//     return user.age < 30 // Returns the array elements that satisfy this condition
 // })
 
 // console.log(usersAgeLessThanThirty)
 
 // const usersFirstName = usersAgeLessThanThirty.map((user)=>{
-// return user.firstName
+// return user.firstName // Returns a modified array where the elements are the first names of the users
 // })
 
 // console.log(usersFirstName)
+
+
 
 // HOF chaining
 
@@ -70,13 +72,13 @@ const userFirstNameWithAgeLessThanThirty = users.filter(user => user.age < 30).m
 
 // console.log(userFirstNameWithAgeLessThanThirty)
 
-// using reduce
+// using reduce :
 
 const userFirstNameWithAgeLessThanThirtyReducedWay = users.reduce(function (acc, curr, i, arr) {
-    if (curr.age < 30) { 
+    if (curr.age < 30) {
         acc.push(curr.firstName)
     }
     return acc
 }, [])
 
-console.log(">>>>>",userFirstNameWithAgeLessThanThirtyReducedWay)
+console.log(">>>>>", userFirstNameWithAgeLessThanThirtyReducedWay)

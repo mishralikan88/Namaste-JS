@@ -1,44 +1,46 @@
-// polyfill for filter
 
-const numbers = [1, 2, 3, 4]
+// Polyfill for the filter method
 
-Array.prototype.myFilter = function (cb) {
-    let temp = []
-    for (i = 0; i < this.length; i++) {
-        if (cb(this[i])) {
-            temp.push(this[i])
+const numbers = [1, 2, 3, 4]; // Sample array to demonstrate the filter method.
+Array.prototype.myFilter = function (cb) { // Adding a custom filter method to the Array prototype.
+
+    let temp = []; // Initialize an empty array to store the filtered elements.
+
+    for (let i = 0; i < this.length; i++) {    // Loop through each element in the current array (referred to as 'this').
+        
+        if (cb(this[i])) {    // Call the callback function (cb) with the current element, If the callback returns true, push the element to the temp array.
+            temp.push(this[i]);
         }
     }
-    return temp
+    return temp;   // Returns the new array containing filtered elements.
 }
 
-const cb = function (num) {
-    return num > 2
+const cb = function (num) {    // Callback function to filter numbers greater than 2
+    return num > 2;
 }
 
-console.log(numbers.myFilter(cb))
-
-// Note - you cant take arrow function becuase this doesnot work with arrow function
+console.log(numbers.myFilter(cb)); // Output: [3, 4]
 
 
-// polyfill for reduce
+// 🔍 Why You Can't Use Arrow Functions in Polyfill ?
 
-// arr.reduce((acc,curr,i,arr)=>{}, Initial Value)
 
-// syntax - reduce(callback , initialValue)
-
-const nums = [1, 2, 3, 4]
-
-Array.prototype.myReduce = function (cb, initialValue) {
-    let accumulator = initialValue
+// ❌ Incorrect: Using an arrow function for polyfill
+Array.prototype.myFilter = (cb) => {
+    let temp = [];
     for (let i = 0; i < this.length; i++) {
-        accumulator = accumulator ? cb(accumulator, this[i], i, this) : this[i]
+        if (cb(this[i])) {
+            temp.push(this[i]);
+        }
     }
-    return accumulator // Scalar
-}
+    return temp;
+};
 
-function sumAcc(acc, currentValue, index, array) {
-    return acc + currentValue
-}
-const sum = nums.myReduce(sumAcc, 0) // reduce(callback , initialValue)
-const sumNoAcc = nums.myReduce(sumAcc) // No initial value case
+
+// 🚩 Why It Fails:
+
+// Arrow functions don’t have their own this. Instead, they take this from where they are defined (the surrounding scope).
+
+// When you define the polyfill using an arrow function, this doesn’t point to the array you are calling the method on. Instead, it points to the global object (or undefined in strict mode).
+
+// That’s why using a regular function works correctly, as it sets this to the array you’re working with.

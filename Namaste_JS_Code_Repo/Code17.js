@@ -1,4 +1,4 @@
-// y is a Higher Order Function whereas x is a callback function.
+// y is a higher-order function, while x is a callback function.
 
 // function x() {
 //     console.log("Hi")
@@ -35,6 +35,7 @@
 // console.log(calculateCircumference(radius))
 
 
+
 const radius = [1, 2, 3, 4]
 
 const area = (radius) => {
@@ -44,6 +45,7 @@ const area = (radius) => {
 const circumference = (radius) => {
     return 2 * Math.PI * radius
 }
+
 
 // const calculate = function (radiusArr, Operation) {
 //     const output = []
@@ -57,9 +59,11 @@ const circumference = (radius) => {
 
 // console.log(calculate(radius, circumference))
 
+
+
 Array.prototype.calculate = function (Operation) {
     const output = []
-    // this - array on which calculate is called. radius is the array in our case.
+// this refers to the array on which the calculate function is called. In our case, it is the radius array.
     for (let i = 0; i < this.length; i++) { 
         output.push(Operation(this[i]))
     }
@@ -69,4 +73,4 @@ Array.prototype.calculate = function (Operation) {
 console.log(radius.calculate(circumference))
 console.log(radius.calculate(area))
 
-// calculate is nothing but polyphil for map
+// calculate is essentially a polyfill for the map function.
