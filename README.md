@@ -1,4 +1,9 @@
 # Namaste-JS
+
 All about JS fundamentals
 
-polyphil practices for map reduce and filter for different examples
+practice - Polyfill implementations for map(), reduce(), and filter() with various examples and edge cases.
+
+output based questions 
+
+practice problmes

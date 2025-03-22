@@ -1,5 +1,7 @@
 # Episode 21 (Season 2 : Episode 2) : Promises
 
+https://medium.com/@lydiahallie/javascript-visualized-promises-async-await-a3f1aad8a943
+
 > Promises are used to handle async operations in JavaScript.
 
 We will discuss with code example that how things used to work before `Promises` and then how it works after `Promises`
@@ -240,7 +242,9 @@ const UpdateWalletBanalcePromise = ShowOrderSummaryPromise.then(function (balanc
   }); // The process continues
 
 
-  
+  Direct rsolving apromise using Promise.resolve()
+  same for the opposite case 
+  promise hell
   
   
 
