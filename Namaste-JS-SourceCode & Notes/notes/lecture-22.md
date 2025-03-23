@@ -197,3 +197,18 @@ alt="promise in Javascript Youtube Link"/></a>
 Note-
 
 We can only resolve a promise once . not more than that. 
+
+
+ Direct rsolving apromise using Promise.resolve()
+  same for the opposite case 
+    https://medium.com/@lydiahallie/javascript-visualized-promises-async-await-a3f1aad8a943
+
+    executor
+
+    
+**code implemnation for fetch .fetch polyphil**
+code implemntat ion for promise APIS polyphils 
+promise output based questiosn 
+promiese.Resolve
+promise hell
+Promise.Reject
