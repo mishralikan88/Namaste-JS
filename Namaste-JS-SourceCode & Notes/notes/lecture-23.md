@@ -1,12 +1,12 @@
 # Chapter 23 (Season 2 : Episode 4) : async await
 
-###
-Topics Covered
+# Topics Covered
+
 - What is async?
 - What is await?
 - How async await works behind the scenes?
 - Example of using async/await
-- Error Handling
+- Error `Handling`
 - Interviews
 - Async await vs Promise.then/.catch
 
@@ -19,7 +19,9 @@ Q: What is Async function and how it is different from Normal function?
 💡 Async function always returns a promise, even if I return a simple string from async function, async keyword will wrap it under Promise object and then returns whereas Normal functions return anything depending on what the context is . It evens returns a promise out of it.
 
 Async function returning a Non-promise value
-=============================================
+
+==============================================================================================
+
 ```js
 async function getData() {
   return "Namaste JavaScript";
@@ -32,7 +34,9 @@ dataPromise.then(res => console.log(res)); // Namaste JavaScript
 ```
 Async function returning a promise
 ==================================
+
 ```js
+
 const p = new Promise((resolve, reject) => {
   resolve('Promise resolved value!!');
 })
@@ -45,6 +49,7 @@ async function getData() {
 const dataPromise = getData();
 console.log(dataPromise); // Promise {<fulfilled>: 'Promise resolved value!!'}
 dataPromise.then(res => console.log(res)); // Promise resolved value!!
+
 ```
 
 Q: How we can use `await` along with async function?  
@@ -54,8 +59,10 @@ A: `async` and `await` combo is used to handle promises.
 Q: How we used to handle promises earlier and why do we even need async/await?
 
 ```js
-Handling Promise before async and await were introduced.
-========================================================
+
+// Handling Promise before async and await were introduced.
+77 ========================================================
+
 const p = new Promise((resolve, reject) => {
   resolve('Promise resolved value!!');
 })
@@ -69,10 +76,9 @@ getData(); // Promise resolved value!!
 //📌 Till now we have been using Promise.then/.catch to handle promise.
 // Now let's see how async await can help us and how it is different
 // The rule is we have to use keyword await in front of promise.
+// Handling Promise after async and await are introduced.
+// =======================================================
 
-
-Handling Promise after async and await are introduced.
-=======================================================
 const p = new Promise((resolve, reject) => {
   resolve('Promise resolved value!!');
 })
@@ -82,9 +88,12 @@ async function getData() {
   console.log(val);
 }
 getData(); // Promise resolved value!!
+
 ```
 📌 `await` is a keyword that can only be used inside a `async` function.
+
 ```js
+
 await function() {} // Syntax error: await is only valid under async function.
 ```
 
@@ -92,7 +101,10 @@ await function() {} // Syntax error: await is only valid under async function.
 Q: What makes `async`-`await` special?  
 
 A: Let's understand with one example where we will compare async-await way of resolving promise with older .then/.catch fashion. For that we will modify our promise `p` with some delay factor added.
+
+
 ```js
+
 const p = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve('Promise resolved value!!');
@@ -126,13 +138,15 @@ async function handlePromise() {
   console.log(val);
 }
 handlePromise(); // This time `Hello There!` won't be printed immediately instead after 3 secs `Hello There!` will be printed followed by 'Promise resolved value!!'
+
 // 💡 So basically code was waiting at `await` line to get the promise resolve before moving on to next line.
 
-// Above is the major difference between Promise.then/.catch vs async-await
-
+// Above is the major difference between Promise.then/.catch vs async-await.
 
 //🤓 Let's brainstorm more around async-await
+
 async function handlePromise() {
+
   console.log('Hi');
   const val = await p;
   console.log('Hello There!');
@@ -141,8 +155,10 @@ async function handlePromise() {
   const val2 = await p;
   console.log('Hello There! 2');
   console.log(val2);
+
 }
 handlePromise(); 
+
 // In above code example, will our program wait for 2 time or will it execute parallely.
 //📌 `Hi` printed instantly -> now code will wait for 3 secs -> After 3 secs both promises will be resolved so ('Hello There!' 'Promise resolved value!!' 'Hello There! 2' 'Promise resolved value!!') will get printed immediately.
 
@@ -184,8 +200,10 @@ handlePromise();
 
 Q: Question is Is program actually waiting or what is happening behind the scene?  
 
-A: As we know, Time, Tide and JS wait for none. And it's true. Over here it appears that JS engine is waiting but JS engine is not waiting over here. It has not occupied the call stack if that would have been the case our page may have got frozen. So JS engine is not waiting. So if it is not waiting then what it is doing behind the scene? Let's understand with below code snippet.
+A: As we know, Time, Tide and JS wait for none. And it's true. Over here it appears that JS engine is waiting but JS engine is not waiting over here. It has not occupied the call stack if that would have been the case our page may have got frozen. So JS engine is not waiting. So if it is not waiting then what it is doing behind the scene? Let's understand with below code snippet.(debug the code)
+
 ```js
+
 const p1 = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve('Promise resolved value by p1!!');
@@ -271,3 +289,10 @@ Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=6nv3qy3oNkc&list=PLlasXeu85E9eWOpw9jxHOQyGMRiBZ60aX&index=4&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/6nv3qy3oNkc/0.jpg" width="750"
 alt="async-await in Javascript Youtube Link"/></a>
+
+
+-> code implementation for fetch .fetch polyphil
+-> code implementation for promise APIS polyphils 
+-> promise output based questiosn 
+-> https://medium.com/@lydiahallie/javascript-visualized-promises-async-await-a3f1aad8a943
+✔ 
