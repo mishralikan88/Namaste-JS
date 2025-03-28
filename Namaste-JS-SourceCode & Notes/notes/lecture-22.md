@@ -189,6 +189,10 @@ First success!
 
 The Promise.resolve(value) method immediately returns a fulfilled promise with the given value.
 
+**Internal Equivalent of Promise.resolve(value)**
+
+Promise.resolve(value) === new Promise((resolve) => resolve(value));
+
 
 **🔹 Use Case 1: Wrapping a Synchronous Value into a Promise**
 
@@ -266,6 +270,13 @@ promise2.then((message) => console.log(message)); // 🎉 Success!
 # 2️⃣ Understanding Promise.reject(error)**
 
 The Promise.reject(error) method immediately returns a rejected promise with the given error value.
+
+
+**✅ Internal Equivalent of Promise.reject(reason)**
+
+Promise.reject(reason) === new Promise((_, reject) => reject(reason));
+
+
 
 **🔹 Use Case 1: Returning an Immediate Failure**
 

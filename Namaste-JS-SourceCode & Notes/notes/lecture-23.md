@@ -646,7 +646,7 @@ p is declared but uninitialized.
 handlePromise is stored as a function reference.
 
 
-Memory Heap:
+stack memory:
 p → uninitialized
 handlePromise → Function reference
 
@@ -961,7 +961,7 @@ handlePromise();
 ✔ The Global Execution Context (GEC) is created.
 ✔ Variables and functions are allocated in memory.
 
-📌 Memory Heap (Before Execution Starts)
+📌 stack memory (Before Execution Starts)
 p1 → uninitialized
 p2 → uninitialized
 handlePromise → Function reference
@@ -1190,7 +1190,7 @@ handlePromise();
 ✔ The Global Execution Context (GEC) is created.
 ✔ Variables and functions are allocated in memory.
 
-📌 Memory Heap (Before Execution Starts)
+📌 stack memory (Before Execution Starts)
 p1 → uninitialized  
 p2 → uninitialized  
 handlePromise → Function reference  
@@ -1426,6 +1426,81 @@ When await is encountered inside an async function:
 -> The function continues execution normally.
 
 ✅ So, JavaScript itself never waits—it just defers execution while keeping the main thread free.
+
+
+
+# 📌 Stack Memory vs Heap Memory in the Memory Phase
+
+In JavaScript, during the Memory Allocation Phase (also called Creation Phase), the engine scans the code and allocates memory before executing it. Here's how Stack and Heap memory behave in this phase:
+
+**📌 Stack Memory (Primitive Values & References to Heap)**
+
+Used for storing:
+
+Primitive values (undefined, number, boolean, etc.).
+Function reference
+References to objects stored in the Heap.
+
+**📌 Heap Memory (Objects & Complex Data Structures)**
+
+Used for storing:
+Objects, including Promises.
+Functions (since functions are also objects in JS).
+Arrays.
+
+The Heap is an unstructured memory space where objects are dynamically allocated.
+
+Example -
+
+```js
+
+const p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("Promise resolved value!!");
+  }, 5000);
+});
+
+```
+
+**📌 Memory Phase (Before Execution Begins)**
+
+1️⃣ Stack Memory (Stores References & Primitive Values)
+p → undefined   // Initially, `p` is undefined in Stack Memory.
+
+2️⃣ Heap Memory (Empty at this phase)
+(No objects created yet)
+
+
+
+**📌 Execution Phase (After Promise is Created)**
+
+-> new Promise(...) Creates an Object in Heap
+-> When new Promise(...) is executed, a Promise object is allocated in Heap Memory.
+-> The variable p in Stack Memory now holds a reference to this Heap object.
+
+Updated Memory
+
+✅ Stack Memory
+p → (Reference to Heap)
+
+✅ Heap Memory
+{ state: "pending", result: undefined }
+
+
+
+📌 After 5 Seconds (When Promise Resolves)
+Heap Memory is updated when resolve("Promise resolved value!!") executes.
+
+Updated Memory
+
+✅ Stack Memory (Unchanged)
+p → (Reference to Heap)
+
+✅ Heap Memory (Updated)
+{ state: "fulfilled", result: "Promise resolved value!!" }
+
+
+Note -  "The same memory management applies to both objects and arrays.
 
 <hr>
 

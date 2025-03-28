@@ -45,7 +45,7 @@ attach ss
 
 Promise.all()- **todo Items**
 
-    =>  Explain case 7 10 11 13 15 20 21 22 23 
+    =>  Explain case 10 11 13 15 20 21 22 23 
     =>  CyclicReferences 
     =>  Handling Large Numbers of Promises Efficiently  
     =>  Debugging & Error Handling,  
@@ -54,6 +54,7 @@ Promise.all()- **todo Items**
     =>  Error Handling in Complex Chains
     =>  Advanced Patterns
     =>  Edge Cases
-    =>  Polyfills & Shims 
+    =>  Polyfills & Shims  
+    =>  Make notes for these topics, which I will do later.(refer lecture-24)
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -1,26 +1,21 @@
-const p1 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('Promise resolved value!!');
-    }, 3000);
-  });
-  
-  // Let's create one promise and then resolve two different promises.
-  const p2 = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('Promise resolved value by p2!!');
-    }, 2000);
-  });
-  
-  async function handlePromise() {
-    console.log('Hi');
-    const val = await p2;
-    console.log('Hello There!');
-    console.log(val);
-  
-    const val2 = await p1;
-    console.log('Hello There! 2');
-    console.log(val2);
+const thenable = {
+  then(resolve) {
+    console.log("Inside thenable.then() - Received resolve function:", resolve); // This confirms JS provides a resolve function
+    setTimeout(() => resolve("Thenable resolved"), 2000); // Calls resolve after 2 sec
   }
-  
-  handlePromise();
-  
+};
+
+// 🟢 Wrapping the thenable inside Promise.resolve() which converts the thenable into a real promise.
+const wrappedThenable = Promise.resolve(thenable);
+console.log("Wrapped Thenable (Before Resolving):", wrappedThenable); 
+
+// 🟢 Creating a normal promise that resolves after 3 sec
+const wrappedPromise = new Promise((resolve) => {
+  setTimeout(() => resolve("P2 done"), 3000);
+});
+console.log("Wrapped Promise (Before Resolving):", wrappedPromise);
+
+// 🟢 Using Promise.all() to wait for both promises to resolve
+Promise.all([wrappedThenable, wrappedPromise]).then((result) => {
+  console.log("Final Resolved:", result);
+});
