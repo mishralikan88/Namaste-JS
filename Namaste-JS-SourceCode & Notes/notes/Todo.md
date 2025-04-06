@@ -56,4 +56,4 @@
 
 # bind()
 
--> Polyfill for apply()
+-> Polyfill for bind()
