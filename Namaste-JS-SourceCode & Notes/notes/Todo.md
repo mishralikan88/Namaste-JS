@@ -57,3 +57,5 @@
 # bind()
 
 -> Polyfill for bind()
+
+# Shadow DOM & Events (Lecture-31.md)
