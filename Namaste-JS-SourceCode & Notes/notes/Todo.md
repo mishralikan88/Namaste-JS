@@ -59,3 +59,18 @@
 -> Polyfill for bind()
 
 # Shadow DOM & Events (Lecture-31.md)
+
+
+# prototype
+
+
+# Throttling Vs debouncing
+
+
+# CORS (Cross Origin Resource Sharing)
+
+
+# Thinking recursively
+
+
+# Local storage and session storage 
