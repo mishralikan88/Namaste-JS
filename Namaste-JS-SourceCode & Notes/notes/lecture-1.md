@@ -1,10 +1,10 @@
 # Episode 1 : Execution Context
 
 - Everything in JS happens inside the execution context. Imagine a sealed-off container inside which JS runs.
- 
+
   ![Execution Context](../assets/execution-context.jpg "Execution Context")
 
-- In the container the first component is **memory component** and the 2nd one is **code component**
+- In the container the first component is **memory component** and the 2nd one is **code component**.
 
 - Memory component has all the variables and functions in key value pairs. It is also called **Variable environment**.
 
@@ -13,17 +13,29 @@
 - JS is a **synchronous**, **single-threaded** language. It will go to the next line once the current line has been finished executing.
 
 
+
 # Single-Threaded Nature of JavaScript
 
-* JavaScript is a single-threaded language, meaning it has one call stack and can do one thing at a time. It doesn’t execute multiple pieces of code simultaneously.
+1️⃣ JavaScript does one thing at a time
 
-* The call stack is where JavaScript keeps track of function calls. When a function is called, it is pushed onto the stack, and when it completes, it is popped off the stack.
+JS has only one call stack, so it can run only one task at a moment.
+It cannot execute two pieces of code at the same time.
 
-* This single-threaded model can be problematic when dealing with long-running tasks because if a task takes too long, it blocks the entire stack, causing the application to become unresponsive.
+2️⃣ The call stack tracks function calls
+
+When a function runs → it gets pushed onto the stack.
+When it finishes → it gets popped off.
+
+This is how JavaScript knows what to run next.
+
+3️⃣ Long tasks freeze everything
+
+If a function takes too long, it blocks the only call stack.
+Since nothing else can run, the app may hang or become unresponsive.
 
 # Synchronous Execution
 
-JavaScript is synchronous by default, meaning that it executes tasks line by line in a blocking manner. It waits for each operation to complete before moving to the next one.
+JavaScript runs code line by line and it waits for each line to finish before moving to the next.
 
 Example:
 
@@ -37,11 +49,18 @@ Task 1
 Task 2  
 Task 3  
 
-Since these are synchronous tasks, they execute one after another without any delay.
+Because each line runs in order, JS executes them one after the other.
 
 # Why It’s a Problem (The Synchronous Blocking Issue)
 
 Imagine you have a time-consuming operation, like reading a large file or making a network request. If JavaScript handled it synchronously, the entire UI would freeze until the operation completes.
+
+Because of this synchronous nature we face below problems -
+
+The UI won’t update
+Buttons won’t work
+Nothing reacts
+App feels stuck
 
 # Asynchronous Mechanism to Handle Blocking
 

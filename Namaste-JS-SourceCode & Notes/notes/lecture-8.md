@@ -32,6 +32,47 @@ window.a or this.a → undefined (because let does not create a property on the 
 ReferenceError:Occurs when trying to access a variable in the TDZ.
 Example: console.log(a); // ReferenceError: Cannot access 'a' before initialization
 
+
+# Where does the value actually get stored?
+
+✅ 1. var a = 1;
+📌 Where is the value stored?
+👉 Inside the Global Object (window) as a property.
+📁 Real storage:
+window = {
+  a: 1
+}
+🚀 Meaning:
+a is stored as window.a
+Value lives inside the Global Object’s property slot
+
+
+✅ 2. let a = 1;
+📌 Where is the value stored?
+👉 Inside the Global Lexical Environment (GLE) or script scope
+NOT inside the window object.
+📁 Real storage:
+Global Lexical Environment = {
+  a: 1   // but not on window
+}
+🚀 Meaning:
+a exists
+value is stored in the lexical environment’s environment record
+NOT as window.a
+
+
+✅ 3. const a = 1;
+📌 Where is the value stored?
+👉 Same place as let → Global Lexical Environment (GLE)
+📁 Real storage:
+Global Lexical Environment = {
+  a: 1   // const binding
+}
+🚀 Meaning:
+a exists
+stored in the lexical environment, not on window
+cannot be reassigned
+
 **Hoisting Behavior:**
 
 var declarations are hoisted but initialized with undefined.
@@ -53,10 +94,16 @@ SyntaxError: Prevents execution entirely due to invalid syntax.
       // ❌ SyntaxError: Identifier 'a' has already been declared
       // Even though 'var' is global-scoped and 'let' is script-scoped, 
       // both exist in the same scope at the script level, causing a conflict.
+      // let is stored in Script Scope (Global Lexical Environment).
+      // var is stored in window (Global Object).
+      // But both are part of the same global scope.
+
  ```
 
 **Let** is a stricter version of **var**. Now, **const** is even more stricter than **let**.
+
 ```js
+
    let a;  
    a = 10;  
    console.log(a); // ✅ 10. Declaration and assignment are on different lines, which is allowed for 'let'.

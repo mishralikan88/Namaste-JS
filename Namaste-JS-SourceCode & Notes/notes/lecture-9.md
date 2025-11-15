@@ -6,14 +6,15 @@
 // Blocks are enclosed within `{ ... }`.
 
 // Why do we need to group statements in a block?
-
-// JavaScript often expects a **single** statement in certain places, like after an `if` condition.
-// Using a block allows us to provide **multiple** statements where only one is expected.
+// We group statements in a block {} so JavaScript treats multiple statements as one single statement where only one is allowed.
+// if accepts only one statement, and {} bundles multiple statements into one so JavaScript can run them together.
 
 // Example 1: Without a block (Single statement)
+
 if (true) console.log("JS expects a single statement after the if condition");
 
 // Example 2: With a block (Multiple statements treated as one)
+
 if (true) {
     var x = 20;
     console.log("JS allows multiple statements by grouping them in a block");
@@ -119,7 +120,30 @@ With var, variables declared inside a block leak outside, which can cause unpred
 
 **Shadowing**
 
-* ```js
+Shadowing means declaring a variable with the same name in an inner scope, which temporarily hides the variable from the outer scope.
+
+```js
+
+let x = 10;  // outer
+{
+  let x = 20; // inner shadows outer x
+  console.log(x); // 20
+}
+console.log(x); // 10
+
+```
+
+⭐ What happens internally here?
+
+-> JavaScript checks the nearest scope first.
+-> If a new variable with the same name exists → outer one gets shadowed (hidden).
+-> Outer variable is still there — just not visible in that inner scope.
+
+
+Example 2 -
+
+```js
+
    var a = 100; // 'a' is declared in the global scope
 
 {
@@ -161,7 +185,7 @@ console.log(b); // 100 → The outer 'b' remains unchanged, as 'let' has block s
 
 // Explanation:
 // - The 'b' inside the block (b = 20) is stored in a separate memory space (block scope).
-// - The outer 'b' (b = 100) exists in the script/global scope and remains unaffected.
+// - The outer 'b' (b = 100) exists in the script/global lexical environment & remains unaffected.
 // - The same is true for 'const'—it is also block-scoped and doesn't affect the outer scope.
 // - 'var a' is NOT block-scoped, so it exists in the global scope, even though it's declared inside the block.
 
@@ -184,10 +208,11 @@ console.log(b); // 100 → The outer 'b' remains unchanged, as 'let' has block s
 
 ```js
 
-let a = 20; // let a = 20; is declared in the global  scope.
+let a = 20; // let a = 20; is declared in the global lexical env.his is script-scoped, not attached to window.
 
 {
-    var a = 30; //  var a = 30; attempts to redeclare a, but var is function-scoped, meaning it also exists in the global scope.
+    var a = 30; //  var is not block scoped. It ignores the {}.So this var a tries to declare another a in the same global scope.
+    
 }
 
 // This creates ambiguity because:
@@ -195,10 +220,12 @@ let a = 20; // let a = 20; is declared in the global  scope.
 // - 'var a' also tries to exist in the global scope (since 'var' is not block-scoped).
 // - JavaScript does not allow var to redeclare an already declared let in the same scope, leading to a SyntaxError.
 
-console.log(a); // ❌ SyntaxError: Identifier 'a' has already been declared
 
-// 🔴 This is called **illegal shadowing** because:
-// - A 'var' variable cannot redeclare a 'let' or 'const' variable in the same scope.
+// Since the global scope already has let a, var a → tries to redeclare it.
+// JavaScript rule: A var cannot redeclare a let/const in the same scope.
+// This is called illegal shadowing.
+
+console.log(a); // ❌ SyntaxError: Identifier 'a' has already been declared
 // - This results in a **SyntaxError** before execution.
 
 ```
@@ -219,6 +246,8 @@ console.log(a); // ❌ SyntaxError: Identifier 'a' has already been declared
 
 ```
 
+*  We can shadow a let with var
+
 ```js
         var a = 20; // Global scope: 'a' is declared in the global execution context
         
@@ -228,12 +257,39 @@ console.log(a); // ❌ SyntaxError: Identifier 'a' has already been declared
         }
 
 // At this point, the block-scoped 'a' is no longer accessible (garbage collected)
+
 console.log(a); // 20 → Global 'a' is accessed since the block-scoped 'a' is out of scope
 
 ```
 
 
 Note – Each block has its own lexical scope and follows the scope chain hierarchy.
+
+Example — Inner block follows the scope chain
+
+```js
+
+let x = 100;
+
+{
+  let y = 200;
+  
+  {
+    let z = 300;
+
+    console.log(x); // 100 (found in outer/global scope)
+    console.log(y); // 200 (found in parent block)
+    console.log(z); // 300 (found in current block)
+  }
+}
+
+```
+
+🌳 Scope chain hierarchy:
+
+Inner block → looks for z (found)
+Then parent block → finds y
+Then global → finds x
 
 <hr>
 

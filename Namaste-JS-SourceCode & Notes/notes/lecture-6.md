@@ -7,7 +7,7 @@ undefined means that memory has been allocated for the variable, but no value ha
 
 * Not defined ≠ Undefined
 
-* If a variable is declared but not assigned a value, its value is undefined. However, if the variable itself is not declared and is referenced in the code, it results in a not defined error.
+* If a variable is declared but not assigned a value, its value is undefined. However, if the variable itself is not declared and is referenced in the code, it gives a not defined error.
 
 ```js
 console.log(x); // undefined
@@ -17,6 +17,7 @@ console.log(a); // Uncaught ReferenceError: a is not defined
 ```
 
 * JavaScript is a loosely typed (weakly typed) language, meaning variables are not bound to a specific data type. For example, we can declare var a = 5, then later assign a = true (boolean) or a = 'hello' (string).
+
 Never manually assign undefined to a variable—let JavaScript handle it automatically.
 
 <hr>

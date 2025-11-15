@@ -29,14 +29,14 @@ setTimeout(function () {
   // Defining a function 'x' that takes another function 'y' as an argument.
 
   function x(y) {
-    console.log("x"); // Prints "x" immediately.
-    y(); // Calls the function 'y', printing "y" immediately.
+    console.log("x"); 
+    y(); 
   }
 
-  // Calling function 'x' and passing an anonymous function 'y' as an argument.
+  // Calling function x and passing an anonymous function y as an argument.
    x(function y() {
-    console.log("y"); // Prints "y" immediately.
-  });
+    console.log("y"); 
+  });  // Prints "x" immediately and Calls the function y which prints "y" immediately.
 
   // The output will be:
   // x
@@ -44,6 +44,8 @@ setTimeout(function () {
   // (after 30 seconds) timer
 
   ```
+
+
 
 **Call Stack 30 seconds ago:**
 
@@ -57,7 +59,7 @@ setTimeout(function () {
 
   * In summary, all three functions are executed through the call stack. If any operation blocks the call stack, it is called **blocking the main thread.**. If x() takes 30 seconds to run, JavaScript has to wait for it to finish because it only has one call stack and one main thread. So, never block the main thread.
 
-  * Always use **async** for functions that take time to finish. For example, setTimeout uses async under the hood.
+  * Always use **async** for functions that take time to finish. For example, **setTimeout** uses async under the hood.
 
 * ```js
 
@@ -87,18 +89,21 @@ setTimeout(function () {
 
 **Step 1:** Call printAll()
 The execution starts when the printAll() function is called.
-
 printAll(); // Starts the process
 
 
-**Step 2:** Execute printAll() Function
-Inside the printAll() function, the first function call is:
+**Step 2:** Execute printAll() Function.
+Inside the printAll() function, the first function call is 
+
+```js
 
 printStr("A", () => {
     printStr("B", () => {
         printStr("C", () => {});
     });
 });
+
+```
 
 What Happens Here:
 
@@ -110,44 +115,67 @@ What Happens Here:
 
 **Step 3:** Wait for setTimeout to Complete.
 The setTimeout delay (say 50 milliseconds) runs in the background (Web API).
-
 During this time, the call stack remains empty, and JavaScript can perform other tasks.
 After the delay, the callback function inside setTimeout moves to the Callback Queue.
 The Event Loop checks the call stack and, since it's empty, moves the callback from the queue to the call stack.
 
-**Step 4:** Print "A"
-The callback of setTimeout finally gets executed:
+**Step 4:** 
+
+The callback of setTimeout finally gets executed inside the callstack.
 
 console.log("A"); // Prints "A" to the console
-cb(); // Calls the next function
+cb(); // cb is called where cb is 
+
+```js
+
+() => {
+    printStr("B", () => {
+        printStr("C", () => {});
+    });
+}
+
+```
 
 What Happens Here:
 -> "A" is printed to the console.
 -> The callback (cb()) is immediately called after printing.
--> Now, cb() triggers the next printStr call:
+-> Now, cb() triggers the next printStr call which is 
 
-**Step 5:** Print "B" (Nested Callback)
-Inside the callback of "A", the next call is:
+```js
 
 printStr("B", () => {
-    printStr("C", () => {});
-});
+        printStr("C", () => {});
+    });
 
-Similar Flow as "A":
--> Calls printStr("B", ...) and sets up another setTimeout.
+```
+
+**Step 5:** 
+
+-> when printStr("B", ...) is called it sets up another setTimeout.
 -> setTimeout moves to the Web API, and the call stack becomes empty.
 -> After the random delay (say 30 milliseconds), the callback moves to the Callback Queue.
 -> Event Loop moves the callback to the call stack since it's empty.
--> "B" gets printed to the console, and the next callback (cb()) is triggered.
+-> "B" gets printed to the console, and the next callback (cb()) is called.
+-> cb is
 
-**Step 6:** Print "C" (Next Nested Callback)
-The process repeats for "C":
+```js
 
-printStr("C", () => {});
+ () => {
+        printStr("C", () => {});
+    }
 
-Same Flow:
--> Sets up a setTimeout with a random delay.
--> After the delay, prints "C".
+```
+
+
+**Step 6:** 
+
+
+when printStr("C", () => {}) is called it sets up another setTimeout.
+
+-> setTimeout moves to the Web API, and the call stack becomes empty.
+-> After the random delay (say 30 milliseconds), the callback moves to the Callback Queue.
+-> Event Loop moves the callback to the call stack since it's empty.
+-> "C" gets printed to the console, and the cb  ()=>{}  is called which internally returns undefined.(not printed)
 
 **Final Step:** Call Stack Becomes Empty
 After printing "C", there are no more nested callbacks to execute.
@@ -162,25 +190,25 @@ C
 
 -> Each call to printStr is nested inside the previous callback.
 -> The next function doesn’t start until the previous one finishes, even if the delay is random.
--> The callback chain ensures that the sequence is maintained.
+-> The **callback chain** ensures that the sequence is maintained.
 
 **Visual Flow:**
 
 printAll() → Calls printStr("A", ...)
 printStr("A", ...) → Waits for random delay → Prints "A" → Calls printStr("B", ...)
 printStr("B", ...) → Waits for random delay → Prints "B" → Calls printStr("C", ...)
-printStr("C", ...) → Waits for random delay → Prints "C"
+printStr("C", ...) → Waits for random delay → Prints "C" 
 
 The **key idea** is that each function call waits for the previous one to finish because the next function is inside the callback of the previous one. This is why the sequence is always maintained, regardless of the random delay.
 
 
-# Understanding Event Listeners and this in JavaScript
+# Understanding Event Listeners & this in JavaScript.
 
-* To understand event listeners, let's create a button in HTML and attach an event to it.
+* To understand event listeners, let's create a button in HTML & attach an event to it.
 
   ```js
   
-  // index.html
+  // index.html - creating a button in HTML.
   
   <button id="clickMe">Click Me!</button>
 
@@ -201,16 +229,22 @@ To understand how the call stack works, put a breakpoint inside this callback an
 
 In the image above, this refers to the button that was clicked.
 
+
+
 # How the keyword this works in regular functions versus arrow functions ?
 
-In JavaScript, the behavior of the this keyword differs between regular functions and arrow functions. Let’s understand how it works in each case.
+In JavaScript, the behavior of the this keyword differs between regular functions and arrow functions. Let's understand how it works in each case.
 
 **Regular Function (function xyz())**
+
+```js
 
 document.getElementById("clickMe").addEventListener("click", function xyz() {
   console.log("Button clicked");
   console.log(this); // Points to the button that was clicked
 });
+
+```
 
 Explanation:
 
@@ -218,16 +252,19 @@ Explanation:
 
 -> In other words, this refers to the button that was clicked.
 
--> This behavior occurs because regular functions get their this value based on how they are called (through the event listener in this case).
+-> This behavior occurs because regular functions get their 'this' value based on how they are called (through the event listener in this case).
 
 
 **Arrow Function (() => {})**
+
+```js
 
 document.getElementById("clickMe").addEventListener("click", () => {
     console.log("Arrow function invoked by button click");
     console.log(this); // Points to the window object
 });
 
+```
 Explanation:
 
 -> When you use an arrow function as an event listener, the value of this does not point to the button.
@@ -237,116 +274,63 @@ Explanation:
 
 
 
-# Managing State Securely in JavaScript: Increment Counter Button
-
-# 📝 Problem with Global Variables
-
-Let's implement an increment counter button to understand how to manage state securely in JavaScript.
-
-**❌ Using a Global Variable (Not Recommended)**
-
-let count = 0;
-document.getElementById("clickMe").addEventListener("click", function xyz() { 
-    console.log("Button clicked", ++count);
-});
 
 
-**Code Explanation**
+# Closures vs Global Variable 
 
-Global Variable Declaration:
-The variable count is declared in the global scope.
+Question - Why global variable is not recommended for data privacy?
+
+Answer  - Because any part of the code can change it, so the data is not protected.
+
+```js
 let count = 0;
 
-Event Listener Attachment:
-The addEventListener method attaches the xyz callback function to the button click event.
-document.getElementById("clickMe").addEventListener("click", function xyz() { 
-    console.log("Button clicked", ++count);
-});
-
-Closure Formation:
-When the xyz function is created, it "remembers" the surrounding scope (global scope) where count is defined.This means that even after the initial script finishes running, xyz still has access to count through closure.
-
-
-**Why Doesn’t count Disappear?**
-
-The callback function xyz forms a closure with the global scope, keeping a reference to count.
-As long as the event listener is active, the closure keeps count alive, preventing it from being garbage collected or lost.
-
-**In Simple Terms:**
-
-The callback function "remembers" the global count variable because it formed a closure.
-Every time you click the button, it reuses the same count variable, updating and logging it correctly.
-
-**The Problem with Global Variables**
-
-Global variables can be accessed and modified from anywhere in the code, making them prone to accidental changes.This could lead to bugs and unexpected behavior.
-
-**Problem Example**
-
-let count = 0;
-document.getElementById("clickMe").addEventListener("click", function xyz() { 
-    console.log("Button clicked", ++count);
-});
+button.addEventListener("click", () => console.log(++count));
 
 // Somewhere else in the code
-count = 100; // Someone mistakenly overwrites the count
 
+count = 100; // ❌ Someone changed the global count
 
-💥 Now, clicking the button logs: Button clicked 101
+// Now when the button is clicked, it logs 101 . This is not safe . This is not controlled.
 
-This unexpected result breaks the logic and highlights the risk of using global variables.
+```
 
-# The Solution: Using Closures for Data Hiding
+Question - Why closure is good ?
 
-To protect the count variable, we encapsulate it within a function using closures. This way, it is not directly accessible from the global scope.
+Answer - 
 
-**✔️ Using Closures (Recommended)**
+```js
 
 function createCounter() {
-    let count = 0; // Local variable inside the closure
-    return function () {
-        console.log("Button clicked", ++count);
-    };
+  let count = 0; // private
+  return () => console.log(++count);
 }
 
 const increment = createCounter();
-document.getElementById("clickMe").addEventListener("click", increment);
+button.addEventListener("click", increment); // Event listener forms a closure with 'count'
 
-**Code Explanation**
+```
 
-Encapsulation with Closures:
-The createCounter function has a local variable count that is not exposed globally.
-The function returns an inner function that has access to count through closure.
+Closure is good because - 
 
-Data Security:
-The count variable is secure and cannot be modified directly from outside the function.
-Preserving State:
-
-Even after the outer function (createCounter) has finished executing, the inner function remembers the value of count through closure.
-
-**🌟 Benefits of Using Closures**
-
--> Encapsulation: Keeps data private and secure.
--> Controlled State Management: Only the returned function can access or modify count.
--> Prevents Accidental Modifications: The count variable is not exposed to the global scope, reducing the risk of unintended changes.
+➜ count becomes private → nobody can change it
+➜ Only the returned function can use it
+➜ Value does not reset → closure remembers it
+➜ Safe, controlled, clean
 
 
-**💡 Important points:**
-
--> Avoid using global variables as they are prone to accidental modifications.
--> Use closures to encapsulate data and maintain state securely.
--> This approach ensures that your counter logic is reliable and protected from external interference.
+One-liner - Global variables can be changed from anywhere, but closures keep the variable private and safe, so only the function can update it.
 
 
-# Garbage Collection and removeEventListeners
+# Garbage Collection and removeEventListeners | Why do we remove Event Listeners ?
 
-**Why do we remove Event Listeners?**
+****
 
--> Event listeners are considered heavy because they form closures, which can lead to memory leaks if not properly managed. Closures keep references to the variables within their scope, even after the functions have executed. This means that even when the call stack is empty, the event listener still holds onto the memory allocated for variables, as it doesn't know when it might need them again (e.g., when the user clicks a button or triggers an event).
+➜ Event listeners create closures, so the callback keeps the variables it uses in memory. The browser keeps them alive because it doesn’t know when the event will happen again (e.g., the next button click). So the closure stays for future use.
 
--> Common event listeners like onClick, onHover, and onScroll can consume significant memory due to closures. If not removed when no longer needed, they continue to occupy memory, causing performance issues and making the page less responsive.
+➜ Common event listeners like onClick, onHover, and onScroll can consume significant memory due to closures.If unused listeners aren’t removed, they keep holding memory and can make the app less responsive.
 
--> To prevent memory leaks and improve performance, it is a good practice to remove event listeners when they are no longer required. Once an event listener is removed using removeEventListener, it becomes eligible for garbage collection, freeing up memory and enhancing page responsiveness.
+➜ Remove event listeners you don’t need; it lets the browser free memory and keeps the page fast. After we remove an event listener with removeEventListener, the browser can garbage-collect it, which frees memory and makes the page faster.
 
 <hr>
 
@@ -354,3 +338,7 @@ Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=btj35dh3_U8&ab_channel=AkshaySaini" target="_blank"><img src="https://img.youtube.com/vi/btj35dh3_U8/0.jpg" width="750"
 alt="Callback Functions in JS ft. Event Listeners in JS Youtube Link"/></a>
+
+
+
+use cases of this - Refer lecture 30

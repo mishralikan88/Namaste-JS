@@ -68,8 +68,7 @@ A function declaration is just another name for a function statement.
 
 An anonymous function is a function without a name.
 
-  function () {
-  }
+function () {}
 
 -> Anonymous functions don’t have their own identity.
 -> They are mostly used as function expressions or callback functions where a name is not required.
@@ -78,12 +77,16 @@ An anonymous function is a function without a name.
 
 In a function expression, an anonymous function is assigned to a variable. The variable itself becomes the function’s name, so the function doesn’t need an explicit name.
 
-    // Anonymous function used as a function expression
+  // Anonymous function used as a function expression
+  ```js
+
     const greet = function() {
         console.log("Hello!");
     };
 
     greet(); // Output: Hello!
+
+  ```
 
 Why use anonymous functions here?
 Since the function is assigned to a variable (greet), providing it with an explicit name would be unnecessary. The function can be called using the variable name.
@@ -92,13 +95,19 @@ Since the function is assigned to a variable (greet), providing it with an expli
 
 A callback function is a function that is passed as an argument to another function and is executed at a later time. In many cases, these functions don’t need a name because they are only used once, as part of an operation.
 
+```js
+
 setTimeout(function() {
     console.log("Callback executed!");
 }, 1000);
 
+```
+
 Here, the anonymous function is used as a callback to the setTimeout function. Since the function is not reused elsewhere, there’s no need to name it.
 
 Another example with an array method:
+
+```js
 
 const numbers = [1, 2, 3, 4];
 const doubled = numbers.map(function(num) {
@@ -106,20 +115,36 @@ const doubled = numbers.map(function(num) {
 });
 console.log(doubled); // Output: [2, 4, 6, 8]
 
-The function inside map() is used as a callback and doesn’t need to be named since it’s only executed within the map() operation.
+```
+
+The function inside map() is used as a callback and doesn’t need to be named since it is only executed within the map() operation.
 
 # Q6: What is a Named Function Expression?
 
 A Named Function Expression is similar to a function expression but includes a name.
 
-  ```js
+```js
+
     var b = function xyz() {
       console.log("b called");
     }
     b();   // Output: "b called"
-    xyz(); // Throws ReferenceError: xyz is not defined
+    xyz(); // Throws ReferenceError: xyz is not defined. In terms of execution context there is no xyz.
+
 ```
-The name (xyz) is only accessible within the function's own scope and is not created in the global scope.
+Named Function Expressions have a name that is only accessible within their own scope.
+
+```js
+
+var greet = function sayHello() {
+  console.log("Inside function:", sayHello); // ✔ works
+};
+
+greet();    // ✔ works (function is assigned to greet)
+sayHello(); // ❌ ReferenceError: sayHello is not defined
+
+
+```
 
 # Q7: Parameters vs Arguments?
 
@@ -127,10 +152,12 @@ The name (xyz) is only accessible within the function's own scope and is not cre
 **Arguments** are the actual values passed to the function during a call.
 
 ```js
+
 var b = function(param1, param2) { // param1 and param2 are parameters
   console.log("b called");
 }
 b(arg1, arg2); // arg1 and arg2 are arguments
+
 ```
 
 # Q8: What are First-Class Functions (aka First-Class Citizens)?
@@ -172,20 +199,22 @@ These capabilities together are known as First-Class Functions.
 # Q9: What is an IIFE ? 
 
 -> An IIFE (Immediately Invoked Function Expression) is a function in JavaScript that runs as soon as it is defined.
--> It’s like saying, “Hey function, run immediately and don’t leave any trace behind!”
--> The main idea is to create a function and execute it right away without needing to call it separately.
+-> It's like saying, "Hey function, run immediately and don't leave any trace behind!"
+-> The main idea is to 'create a function & execute it right away' without needing to call it separately.
 
 
 **Why Do We Use IIFEs?**
 
 Avoid Polluting the Global Scope:
 
-In JavaScript, variables declared outside of functions are added to the global scope. This can cause conflicts and bugs if different parts of your code accidentally use the same variable names.An IIFE helps keep variables private by enclosing them inside a function, so they don’t mess up the global scope.
+In JavaScript, variables declared outside of functions are added to the global scope. This can cause conflicts and bugs if different parts of your code accidentally use the same variable names.
+
+An IIFE helps keep variables private by enclosing them inside a function, so they don't mess up the global scope.
 
 Execute Code Immediately:
 
 Sometimes you need to run some setup code right away (like configuration or initialization tasks).
-An IIFE runs the moment it’s defined, making it perfect for such use cases.
+An IIFE runs the moment it's defined, making it perfect for such use cases.
 
 
 **📝 Syntax of an IIFE:**
@@ -231,7 +260,7 @@ An IIFE is a function that runs immediately after being defined, keeping its var
 
 **🎯 Real-World Use Case:**
 
-Imagine you’re building a web page with multiple scripts. To prevent one script from interfering with another, you can use IIFEs to isolate each script's variables.
+Imagine you're building a web page with multiple scripts. To prevent one script from interfering with another, you can use IIFEs to isolate each script's variables.
 
 
 Watch Live On Youtube below:

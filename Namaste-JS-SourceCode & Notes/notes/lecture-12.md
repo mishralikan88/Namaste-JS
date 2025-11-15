@@ -51,7 +51,7 @@ outer()(); // 10
 ```
 Ans: No, it will still behave the same way. The difference between var and let does not affect closure formation here.
 
-# Q4: Will the inner function have access to the outer function’s argument?
+# Q4: Will the inner function have access to the outer function's argument?
 
 ```js
 
@@ -119,14 +119,20 @@ Ans: The output will still be 10 20 "Hello There". The inner function resolves v
 
 **Without Closures**
 
+```js
+
   var count = 0;
   function increment() {
       count++;
   }
 
-// Anyone can access and modify the `count` variable from the global scope.
+```
+
+// Anyone can access & modify the `count` variable from the global scope.No data hiding here.
 
 **With Closures (Achieving Data Hiding)**
+
+```js
 
   function counter() {
       var count = 0;
@@ -144,6 +150,7 @@ Ans: The output will still be 10 20 "Hello There". The inner function resolves v
 
   // Each counter instance has its own isolated state.
 
+```
 
 -> The statement "Each counter instance has its own isolated state" means that every time you call the counter() function, it creates a new, independent instance of the count variable. This is because the count variable is defined inside the counter() function and is therefore part of its local scope.
 
@@ -160,11 +167,12 @@ counter2(); prints 1, because it starts from a fresh count since it is a separat
 -> In short, each invocation of counter() creates a new closure with its own independent state, and they do not interfere with each other.
 
 
-**Using Constructor Functions (More Scalable)**
+**Using Constructor Functions (More Scalable)** - (this + new + no constructor)
 
-``` 
+```js 
   function Counter() {
-       var count = 0; // Private variable
+
+    var count = 0; // Private variable
 
     // Public method to increment count
     this.increment = function() {
@@ -198,6 +206,7 @@ Since count is not returned directly or exposed, it cannot be accessed or modifi
 Ans - No one can directly change the count value from outside the object.
 
 console.log(counter1.count); // undefined
+
 This ensures that count is always managed through the provided methods (increment and decrement), maintaining data integrity.
 
 
@@ -206,9 +215,9 @@ This ensures that count is always managed through the provided methods (incremen
 
 > Modularity:
 
-    - The constructor function keeps all the related logic within the same function, promoting a modular design.
+    - The constructor function 'Counter' keeps all the related logic within the same function, promoting a modular design.
     - We can easily add more methods to the Counter object without affecting the existing code.
-    - This makes the code easy to extend and maintain as new requirements come up..
+    - This makes the code easy to extend and maintain as new requirements come up.
 
 > Flexibility:
 
@@ -239,6 +248,8 @@ This ensures that count is always managed through the provided methods (incremen
     - The only way to change count is via the methods provided (increment and decrement), ensuring controlled access.
 
     Example: Adding New Methods-
+
+    ```js
 
     function Counter() {
       var count = 0;
@@ -271,12 +282,16 @@ This ensures that count is always managed through the provided methods (incremen
     counter1.getCount();  // Current count: 2
     counter1.reset();     // Counter reset to: 0
 
+    ```
+
 
 3. Why Not Use a Global Variable?
 
 If we had used a global variable instead of a closure, the variable would be:
     - Accessible and modifiable from anywhere, making it prone to bugs and unintended changes.
     - Shared between instances, causing unexpected behavior.
+
+    ```js 
 
     var count = 0;
     function increment() {
@@ -291,6 +306,7 @@ If we had used a global variable instead of a closure, the variable would be:
 
     // In contrast, the closure-based design prevents such problems.
 
+```
 
 4. Why Not Use let or const Directly Inside Methods?
 
@@ -302,9 +318,10 @@ If you declare count using let or const directly inside the increment or decreme
 
 5. Why Use a Constructor Function Instead of a Plain Function?
 
-    - Using a constructor function (like Counter) instead of a plain function makes the code more scalable and flexible. Here’s why:
+    - Using a constructor function (like Counter) instead of a plain function, makes the code more scalable and flexible. Here’s why:
 
     - Multiple Instances:With a constructor, you can create many independent counters. Each counter has its own separate count value.
+      
       For example:
 
       var counter1 = new Counter();
@@ -317,17 +334,21 @@ If you declare count using let or const directly inside the increment or decreme
 
     - Methods Are Part of the Object: Methods like increment and decrement are part of the counter object.This means you can call them directly on each instance, like counter1.increment().
 
-    - Easy to Add More Methods: If you want to add new methods (like reset or getCount), you can easily do that.Just add them inside the constructor, and every instance will have those methods.
+    - Easy to Add More Methods: If you want to add new methods (like reset or getCount), you can easily do that.Just add them inside the constructor function, and every instance will have those methods.
 
-    - Automatic Setup with new: When you use new Counter(), it automatically sets up the 'this' keyword to refer to the 'new object'.You don’t have to manually bind methods or worry about losing context.
+    - Automatic Setup with new: When you use new Counter(), it automatically sets up the 'this' keyword to refer to the 'new object'.You don't have to manually bind methods.
 
 # Q9: What are the disadvantages of closures?
 
 **Memory Consumption:**
 
-Closures hold references to outer variables, preventing them from being garbage collected. This can lead to increased memory usage and potential memory leaks.
+Closures hold references to outer variables, preventing them from being garbage collected. 
+
+This can lead to increased memory usage and potential memory leaks.
 
 Example: Memory Leak with Closures
+
+```js
 
 function a() {
     var x = 0;
@@ -339,6 +360,7 @@ function a() {
 var y = a(); // 'y' holds a reference to 'b', which holds a reference to 'x'
 y();
 
+```
 
 Garbage Collection: Ideally, x should be garbage collected after a() finishes execution, but since b() holds a reference to x, it remains in memory. JavaScript engines like V8 use advanced garbage collection algorithms, like the Mark-and-Sweep algorithm, to handle such cases and clean up unused variables.
 
@@ -354,7 +376,9 @@ Sweep Phase: It then sweeps away (deletes) all the objects that are not marked (
 
 Let’s understand the Mark-and-Sweep algorithm with a closure example in a simple way!
 
-**Step 1: Creating a Closure** 
+**step 1 - Memory allocation** 
+
+```js
 
 function outer() {
     let a = 10; // Local variable
@@ -366,19 +390,71 @@ function outer() {
 let closureFunc = outer(); // Creates a closure
 closureFunc(); // Output: 10
 
--> The outer function is called, creating a local variable a.
--> The inner function is returned and stored in closureFunc.
--> Even after outer finishes executing, the inner function remembers the variable a due to closure.
+```
+🧩 1. Global Phase (before running code)
 
-**🗑️ Step 2: Memory Allocation**
+JS creates the Global Execution Context (GEC).
+Global Memory:
+outer → function
+closureFunc → undefined
 
--> When outer() is called, memory is allocated for the 'a' variable and 
-the 'inner' function itself.
+🧩 2. Line: let closureFunc = outer();
+outer() is called → JS creates a Function Execution Context (FEC) for outer.
+Outer FEC – Memory:
+a = 10
+inner = function() { console.log(a); }
+inner is created inside outer, so it has a link to outer’s scope (where a lives).
 
--> Since the inner function closes over a, it holds a reference to it.
+🧩 3. outer returns inner
+outer() does not execute inner().
+It returns the function inner.
+So after outer() finishes:
+Global Memory becomes:
+outer → function
+closureFunc → inner (with closure attached)
+The Outer FEC is removed from the call stack.
 
+🧩 4. What JS keeps (Closure)
+Normally, when a function ends:
+Its execution context is destroyed
+Its local variables (a) are eligible for garbage collection
+But here:
+inner() still needs a (console.log(a))
+So JS does NOT delete a.
+Instead, it stores a in a hidden closure environment attached to inner:
+closureFunc.[[Closure]] = { a: 10 }
+Think of closureFunc (inner) carrying a backpack:
+Backpack = closure
+Inside: { a: 10 }
 
-**🔥 Step 3: Mark-and-Sweep in Action**
+🧩 5. Line: closureFunc();
+Now we call:
+closureFunc();
+This means:
+JS creates a Function Execution Context for inner().
+Inner FEC – Memory:
+No local a
+Code: console.log(a);
+Variable lookup:
+Local scope? → no a
+Closure scope (backpack)? → a = 10 → ✅ found
+So:
+console.log(a); // 10
+Even though outer() finished earlier,
+a is still available via the closure.
+
+🧩 6. Execution Context Summary
+When outer() ran:
+FEC had: a = 10, inner = function
+After outer() returned:
+Outer FEC removed
+Closure for inner kept: { a: 10 }
+When closureFunc() (inner) runs:
+It reads a from its closure, not from global
+
+⭐ One-line Summary - outer()'s execution context is destroyed after it returns, but its variable a is kept alive in a closure attached to inner(), so closureFunc() can still log 10.”
+
+**🔥step 2- Mark-and-Sweep in Action**
 
 -> Mark Phase ✅- The algorithm scans through all objects starting from the global scope and marks all reachable (accessible) objects.
 Since closureFunc still holds a reference to the inner function, and inner keeps a reference to a, both are marked as "reachable" and are not eligible for garbage collection.
@@ -387,18 +463,15 @@ Since closureFunc still holds a reference to the inner function, and inner keeps
 Since both inner and a are still reachable, no memory is freed in this case.
 
 
-**Step 4: Breaking the Reference**
+**step 3 -Breaking the Reference**
 
 If we break the reference, memory can be freed.
-
 closureFunc = null; // Removing reference to inner function
-
 Now, the inner function and variable 'a' are no longer reachable.
 
 -> ✅ Mark Phase Again: The algorithm now finds that closureFunc is null, so the inner function and a are no longer reachable.
 
 -> ❌ Sweep Phase: Since both are unmarked, the engine frees up the memory occupied by them.
-
 
 
 # Q11: Why Closures Can Cause Memory Leaks??
@@ -411,10 +484,8 @@ To avoid this:
 -> Use closures wisely and avoid keeping unnecessary data inside them.
 -> Closures keep variables alive even after the outer function has returned.
 -> If we do not break references, the Mark-and-Sweep algorithm won't collect those variables, causing memory leaks.
+
 Setting the closure to null allows the garbage collector to free up memory.
-
-
-
 
 
 Watch Live On Youtube below:

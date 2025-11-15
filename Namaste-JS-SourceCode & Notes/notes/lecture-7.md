@@ -1,11 +1,12 @@
 # Episode 7 : The Scope Chain, Scope & Lexical Environment
 
-* **Scope** in JavaScript is directly related to the **Lexical Environment**. Scope refers to the current context of the code, which determines the accessibility of variables.
+* **Scope** determines where a variable is accessible in your code.
 
-* Let's observe the below examples:
+* Let's observe the below examples-
+
 ```js
-// CASE 1
-function a() {
+// CASE 1 
+function a() { 
     console.log(b); // 10
     // Instead of printing undefined, it prints 10. This means the function 'a' 
     // can access the variable 'b' outside its own scope.
@@ -58,11 +59,12 @@ function a() {
     var b = 10; // 'b' is declared inside function 'a' and is only accessible within 'a'.
     c();
     function c() {
-        console.log(b); // 10 (JavaScript looks for 'b' inside 'c', doesn't find it, so it checks 'a' and finds it there.)
+        console.log(b); // 10 (JavaScript looks for 'b' inside 'c', doesn't find it, so it checks inside function 'a' and finds it there.)
     }
 }
 a();
 console.log(b); // Error: b is not defined (because 'b' is scoped to function 'a' and not available globally).
+
 ```
 
 ```
@@ -78,34 +80,46 @@ GEC → { a: function a(), [Lexical environment pointer → null] }
 ![Lexical Scope Explaination](../assets/lexical.jpg "Lexical Scope")
    
 
-* **Scope**: The environment where a variable is accessible.
+* **Scope**:
 
-* **Lexical Environment**: A combination of local memory and the Lexical Environment of its parent (also known as the surrounding environment).
+The environment where a variable is accessible.
 
-* **Lexical Scope**: The ability of a function to access variables from its parent scope.
+* **Lexical Environment**:
 
-* Whenever an Execution Context is created, a Lexical Environment (LE) is also created. This environment is stored in memory and referenced within the Execution Context.
+A Lexical Environment contains the local variables of a function and a reference to its parent scope.(surrounding scope).
+Lexical Environment is the memory structure that stores local variables plus a reference to the parent environment.
+
+* **Lexical Scope**: 
+
+Lexical scope means a function can access variables from its parent scope.
+Lexical Scope is the rule that lets a function access variables from its parent scope.
+
+* Every Execution Context has its own Lexical Environment, which stores the variables and keeps a reference to its parent environment
 
  ![Lexical Scope Explaination](../assets/lexical.jpg "Lexical Scope")
 
-The orange mark represents a reference pointing to the Lexical Environment of its parent.
+The **orange mark** represents a reference pointing to the Lexical Environment of its parent.
+
+The Lexical Environment is responsible for -
+
+✔ storing variables.
+✔ storing function declarations.
+✔ linking to parent environment.
+✔ enabling closures.
 
 
 **Scope Chain**
 
-* A mechanism JavaScript uses to resolve variable references.
-
-* If JavaScript does not find a variable in the current scope, it searches in its parent scope (Lexical Scope).
-
-* If the variable is not found there, the search continues up the chain until it reaches the global scope.
-
-* This lookup process is called the Scope Chain.
+* JavaScript first looks for a variable in the current function/block.
+* If not found, it checks the parent’s Lexical Environment.
+* It continues moving outward until it reaches the global scope.
+* This step-by-step lookup is called the scope chain.
 
  ![Lexical Scope Explaination](../assets/lexical2.jpg "Lexical Scope")
 
-In the diagram, the sequence local -> closure -> global forms the Scope Chain. Here, JavaScript is searching for the variable b and finds it in the closure (function a's scope).
+In the diagram, the sequence 'local -> closure -> global' forms the Scope Chain. Here, JavaScript is searching for the variable b and finds it in the closure (function a's scope).
 
-* ```js
+```js
 function a() {
     function c() {
         // Function c is declared inside function a and has access to its scope.
@@ -114,9 +128,9 @@ function a() {
 } 
 // Function a is declared in the global execution context and has access to global variables.
 
-  ```
+```
 
-* Lexical (or Static) Scope refers to the accessibility of variables, functions, and objects based on their physical location in the source code.
+* JS decides scope based on where functions are defined in the code.
 
 ```js
 
@@ -132,7 +146,9 @@ function a() {
 ```
 
 
-* **Note** - An inner function can access variables from its outer functions, even if it is deeply nested. However, an outer function cannot access variables declared inside an inner function.
+* **Note** - 
+
+An inner function can access variables from its outer functions, even if it is deeply nested. However, an outer function cannot access variables declared inside an inner function.
 
 
 <hr>
