@@ -2,15 +2,12 @@
 
 In JavaScript, map(), filter(), and reduce() are powerful Higher-Order Functions (HOFs) that help in transforming and processing arrays efficiently. These functions take another function as an argument and apply it to each element of the array.
 
+
 # Map function
 
-The map() method creates a new array populated with the results of calling a provided function on every element in the calling array. It does not mutate the original array.
+map() takes a callback function, runs it on every element of the array, and returns a new array. It does not mutate the original array.
 
-**syntax**
-
-const output = arr.map(callbackFunction)
-
-Here, callbackFunction tells map() what transformation to perform on each element.
+**syntax** - const output = arr.map(callbackFunction)
 
 **Example 1: Double Each Element**
 
@@ -22,7 +19,7 @@ Here, callbackFunction tells map() what transformation to perform on each elemen
       return x * 2;
     }
 
-    const doubledArr = arr.map(double);  // Internally, the map method executes the provided function for each element in the array, creating and returning a new array. It does not modify the original array.
+    const doubledArr = arr.map(double);  // Internally the map method executes the provided function for each element in the array, creating and returning a new array. It does not modify the original array.
 
     console.log(doubledArr); // [10, 2, 6, 4, 12]
 
@@ -30,13 +27,17 @@ Here, callbackFunction tells map() what transformation to perform on each elemen
 
 **Example 2: Convert Elements to Binary**
 
-const binaryArr = arr.map((x) => x.toString(2));
+```js
+
+const binaryArr = arr.map((x) => x.toString(2)); // x.toString(2) -> gives binary value of x.
+
 console.log(binaryArr); // ['101', '1', '11', '10', '110']
 
+```
 
 # Filter Function
 
-The filter() method creates a new array with all elements that pass the test implemented by the provided function.
+filter() takes a callback function, runs it on every element, and returns a new array of only those elements for which the callback returns true.
 
 **Syntax:**
 
@@ -64,7 +65,9 @@ const output = arr.filter(callbackFunction)
 
 # Reduce Function
 
-The reduce() method executes a reducer function on each element of the array, resulting in a single output value.
+reduce() takes a reducer callback, runs it on every element, and accumulates the result into a single output value
+
+
 
 **Syntax:**
 
@@ -109,6 +112,8 @@ console.log(findSum(array)); // Prints the result of the findSum function i.e. 1
 
 -> The reduce method goes through each element in the array and calls the provided callback function on every iteration.
 
+-> The second argument of the reduce function (e.g., 0) defines the initial value of the accumulator.
+If no initial value is provided, reduce will use the first element of the array as the starting value.
     
 -> Accumulator: A variable that holds the cumulative result after each iteration.
 Current: The element currently being processed in the array.
@@ -116,8 +121,6 @@ Current: The element currently being processed in the array.
 -> During each iteration, the accumulator is updated by adding the current element to it.
 The updated accumulator value is then returned and used as the accumulator in the next iteration.
     
--> The second argument of the reduce function (e.g., 0) defines the initial value of the accumulator.
-If no initial value is provided, reduce will use the first element of the array as the starting value.
 
 **Step-by-Step Breakdown** 
 
@@ -160,13 +163,12 @@ Calculation:
 accumulator + current = 11 + 6 = 17
 The accumulator now becomes 17.
 
--> Final Step:
-After going through all the elements, the reduce method returns the final accumulated value:
+-> Final Step: After going through all the elements, the reduce method returns the final accumulated value:
 17
 
 **Note:**
 
-The reduce method keeps adding the current element to the accumulated value step by step. The final accumulated result is 17, which is the sum of all elements in the array.
+reduce() loops through the array and keeps combining values step-by-step into one final accumulated result.
 
 **Find the maximum element in an array (non-functional programming way).**
 
@@ -176,7 +178,7 @@ const array = [5, 1, 3, 2, 6];
 
 function findMax(arr) {
  
-  let max = 0;  // Initialize a variable to store the maximum value.Starting with 0 assumes that all numbers in the array are positive.
+  let max = 0;  // Initialize a variable to store the maximum value. Starting with 0 assumes that all numbers in the array are positive.
 
   for (let i = 0; i < arr.length; i++) {   // Loop through each element in the array.
     if (arr[i] > max) { // If the current element is greater than the stored max value,update the max value with the current element.
@@ -201,7 +203,7 @@ const array = [5, 1, 3, 2, 6];
 
 const output = array.reduce((acc, current) => {
 
-  if (current > acc) {
+  if (current > acc) { // acc = max
     acc = current;
   }
   return acc;
@@ -209,8 +211,7 @@ const output = array.reduce((acc, current) => {
 
 console.log(output); // Output: 6
 
-
-// Alternative version: Renaming the accumulator to 'max' for better clarity
+// Alternative version - Renaming the accumulator to 'max' for better clarity
 
 const outputWithMax = array.reduce((max, current) => {
 
@@ -239,7 +240,7 @@ console.log(outputWithMax); // Output: 6
 **Code Explanation - How reduce Works Here**
 
 const array = [5, 1, 3, 2, 6];
-const result = arr.reduce(callbackFunction, 0)
+const result = arr.reduce(callback, 0)
 
 -> In this approach, the reduce method is used to find the maximum value in an array.
 
@@ -319,9 +320,12 @@ The reduce method keeps comparing the current element with the accumulated maxim
 
 ```js
     
-    const arr = [5, 1, 3, 2, 6];
-    const sum = arr.myReduce((acc, curr) => acc + curr); 
-    console.log(sum); // Output: 17
+const arr = [5, 1, 3, 2, 6];
+const sum = arr.reduce((acc, curr) => {
+  acc = acc + curr;
+  return acc;
+});
+console.log(sum); // 17
 
 ```
 
@@ -329,7 +333,7 @@ The reduce method keeps comparing the current element with the accumulated maxim
 
 const arr = [5, 1, 3, 2, 6];
 const callBack = (acc, curr) => acc + curr
-const sum = arr.myReduce(callBack); 
+const sum = arr.reduce(callBack); 
 
 Initial State:
 Since no initial value is provided, the reduce() method automatically takes the first element of the array (5) as the initial accumulator value. The iteration starts from the second element (index 1).
@@ -368,10 +372,12 @@ The reduce() method completes the iteration, and the final accumulated value (17
 Final Outpu
 console.log(sum); // Output: 17
 
+
 # Function Chaining
 
 Function chaining is a powerful technique that allows multiple operations to be performed in a single line.
-**How can I print the list of first names of employees whose ages are less than 30 by chaining filter and map methods?**
+
+**How can I print the list of first names of employees whose ages are less than 30 by chaining filter and map methods ?**
 
 ```js
 
@@ -389,6 +395,9 @@ const youngUsers = users
 console.log(youngUsers); // ['Alok', 'Ashish', 'Ankit']
 
 
+-> The chained function call first uses filter() to create a new array containing users with age less than 30, and then uses map() on this filtered array to extract and return an array of their first names.
+
+
 // Implement the same logic using the reduce method.
 
 const output = users.reduce((acc, curr) => {
@@ -397,8 +406,7 @@ const output = users.reduce((acc, curr) => {
   }
   return acc;
 }, []);
-console.log(output); // ["Alok", "Ashish", "Ankit"]
-
+console.log(output); // ["Alok", "Ashish", "Ankit"]. In every iteration we are updating the acc.
 
 
 // Print full names in an array
@@ -410,9 +418,6 @@ console.log(fullNames);   // ['Alok Raj', 'Ashish Kumar', 'Ankit Roy', 'Pranav M
 
 ```
 
--> The chained function call first uses filter() to create a new array containing users with age less than 30, and then uses map() on this filtered array to extract and return an array of their first names.
-
-
 **How the Code Works with reduce:**
 
 -> The reduce() method iterates through the users array, processing each element (referred to as curr).
@@ -420,18 +425,16 @@ console.log(fullNames);   // ['Alok Raj', 'Ashish Kumar', 'Ankit Roy', 'Pranav M
 -> Accumulator Initialization:
 The second argument to reduce() is an empty array [], which serves as the initial value of the accumulator acc.
 This means acc starts as an empty array and gets updated during each iteration.
-Conditional Check:
 
--> Inside the callback function, it checks if the current user's age (curr.age) is less than 30.
+-> Conditional Check: Inside the callback function, it checks if the current user's age (curr.age) is less than 30.
 If true, it pushes the firstName of the current user (curr.firstName) to the acc array.
 
-->Returning the Accumulator:
-After processing all elements, reduce() returns the final accumulated array, which contains the first names of users under 30.
-
+->Returning the Accumulator: After processing all elements, reduce() returns the final accumulated array, which contains the first names of users under 30.
 
 
 **Step-by-Step Breakdown**
 
+```js
 const users = [
   { firstName: "Alok", lastName: "Raj", age: 23 },
   { firstName: "Ashish", lastName: "Kumar", age: 29 },
@@ -441,7 +444,9 @@ const users = [
 
 const result = users.reduce(callbackFunction, [])
 
--> Initialization:
+```
+
+-> Initialization -
 The reduce method starts with an initial value of the accumulator, which is an empty array [] in this case.
 accumulator = []  
 current = { firstName: "Alok", lastName: "Raj", age: 23 }  (first user object)  
@@ -449,30 +454,27 @@ Condition Check:Since the current user's age (23) is less than 30, it passes the
 Action:Push the first name "Alok" into the accumulator.
 accumulator = ["Alok"]
 
--> Second Iteration:
+-> Second Iteration -
 accumulator = ["Alok"]  (result from the previous step)  
 current = { firstName: "Ashish", lastName: "Kumar", age: 29 }  (second user object)  
 Condition Check:Since the current user's age (29) is less than 30, it passes the condition.
 Action:Push the first name "Ashish" into the accumulator.
 accumulator = ["Alok", "Ashish"]
 
--> Third Iteration:
+-> Third Iteration -
 accumulator = ["Alok", "Ashish"]  (result from the previous step)  
 current = { firstName: "Ankit", lastName: "Roy", age: 29 }  (third user object)  
 Condition Check:Since the current user's age (29) is less than 30, it passes the condition.
 Action:Push the first name "Ankit" into the accumulator.
 accumulator = ["Alok", "Ashish", "Ankit"]
 
--> Fourth Iteration:
+-> Fourth Iteration -
 accumulator = ["Alok", "Ashish", "Ankit"]  (result from the previous step)  
 current = { firstName: "Pranav", lastName: "Mukherjee", age: 50 }  (fourth user object)  
 Condition Check:Since the current user's age (50) is not less than 30, it fails the condition.
-Action:Do nothing and move to the next iteration.
 accumulator = ["Alok", "Ashish", "Ankit"]
 
--> Final Step:
-After iterating through all users, the reduce method returns the final accumulated value:
-["Alok", "Ashish", "Ankit"]
+-> Final Step - After iterating through all users, the reduce method returns the final accumulated value: ["Alok", "Ashish", "Ankit"]
 
 
 "Using polyfills helps to understand the internal workings of these functions and ensures compatibility with older browsers."
@@ -492,7 +494,7 @@ After iterating through all users, the reduce method returns the final accumulat
 
 
     // Polyfill for map()
-    Array.prototype.myMap = function(callback) {
+    Array.prototype.myMap = function( ) {
     const result = [];
     for (let i = 0; i < this.length; i++) {
         result.push(callback(this[i], i, this));
@@ -601,15 +603,20 @@ return result;
 
 After iterating through the entire array, the function returns the new array containing all filtered elements.
 
+
+
 # Polyfill for reduce()
 
 ```js
 
-Array.prototype.myReduce = function(callback, initialValue) {
 
+const arr = [5, 1, 3, 2, 6]; // 1. Sample array
+
+Array.prototype.myReduce = function(callback, initialValue) { // 2. myReduce - reduce Polyphil
+ 
   let accumulator = initialValue !== undefined ? initialValue : this[0];   // Initialize accumulator with initialValue if provided, otherwise use the first element
 
-  let startIndex = initialValue !== undefined ? 0 : 1;   // Start index from 0 if initialValue is provided, else from 1
+  let startIndex = initialValue !== undefined ? 0 : 1;   // Start index is  0 if initialValue is provided, else start index is 1
 
 
   for (let i = startIndex; i < this.length; i++) {   // Iterate through the array
@@ -622,14 +629,11 @@ Array.prototype.myReduce = function(callback, initialValue) {
 };
 
 
-const arr = [5, 1, 3, 2, 6]; // Sample array
-
-
-function sum(acc, curr) { // Callback function to sum numbers
+function sum(acc, curr) { // 3. Callback function to sum numbers
   return acc + curr;
 }
 
-const total = arr.myReduce(sum, 0); // Usage of the custom myReduce() function
+const total = arr.myReduce(sum, 0); // 4. Usage of the custom myReduce() function
 
 console.log(total); // Output: 17
 
@@ -637,8 +641,7 @@ console.log(total); // Output: 17
 
 **🚀 How the reduce() Polyfill Works**
 
-Accumulator Initialization:
-If initialValue is provided, it’s set as the accumulator.
+Accumulator Initialization: If initialValue is provided, it’s set as the accumulator.
 If not, the first element of the array becomes the accumulator.
 
 Iteration and Accumulation:
@@ -651,8 +654,7 @@ currentIndex (index of the current element).
 array (the entire array).
 The result of the callback becomes the new accumulator value.
 
-Return the Accumulated Value:
-Once all elements are processed, the final accumulated value is returned.
+Return the Accumulated Value: Once all elements are processed, the final accumulated value is returned.
 
 
 # Given an array of user objects, how can we count the number of users with the same age using the reduce() method?
@@ -754,3 +756,42 @@ Watch Live On Youtube below:
 
 <a href="https://www.youtube.com/watch?v=zdp0zrpKzIE&list=PLlasXeu85E9cQ32gLCvAvr9vNaUccPVNP" target="_blank"><img src="https://img.youtube.com/vi/zdp0zrpKzIE/0.jpg" width="750"
 alt="map, filter & reduce Youtube Link"/></a>
+
+
+reduce polyphil - Finding Max
+
+```js
+
+const arr = [5, 1, 3, 2, 6]; 
+
+Array.prototype.myReduce = function(callback, initialValue) { 
+ 
+  let accumulator = initialValue !== undefined ? initialValue : this[0];
+
+  let startIndex = initialValue !== undefined ? 0 : 1;
+
+
+  for (let i = startIndex; i < this.length; i++) {   
+
+    accumulator = callback(accumulator, this[i], i, this);    
+  
+  }
+
+  return accumulator;  
+};
+
+// max logic
+
+function max(acc, curr) { 
+
+  if (curr > acc) return curr
+  return acc
+  
+}
+
+const Maximum = arr.myReduce(max, 0);
+
+console.log(Maximum); 
+
+
+```

@@ -32,3 +32,5 @@
 -> Edge cases
 
 -> Polyfills & shims (promise APIs & all promise related polyfills)
+
+-> Event Loop - Output Related questions

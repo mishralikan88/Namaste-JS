@@ -1,8 +1,9 @@
-# Episode 15 : Asynchronous JavaScript & EVENT LOOP from scratch
+# Episode 15 : Asynchronous JavaScript & EVENT LOOP from scratch 
 
-Note: The call stack will execute any execution context that enters it without waiting for anything. Time, tide, and JavaScript wait for no one.
+Note: The call stack executes any execution context that enters it without waiting for anything. Time, tide, and JavaScript wait for no one.
 
-The browser has a JavaScript Engine, which contains the Call Stack. The call stack holds the Global Execution Context, Local Execution Context, and more.
+The browser has a JavaScript Engine, which contains the Call Stack. The call stack holds the Global Execution Context, Local/Function Execution Context.
+
 However, the browser also has many other capabilities, such as local storage, timers, URL handling, Bluetooth access, geolocation, and more.
 JavaScript needs a way to connect the call stack to these browser features, and this is done through Web APIs.
 
@@ -12,27 +13,27 @@ JavaScript needs a way to connect the call stack to these browser features, and 
 
 A Web API (short for Web Application Programming Interface) is a set of browser-provided functionalities that allow JavaScript to interact with features outside of the JavaScript engine itself. In simple terms, Web APIs act as a bridge between JavaScript and the browser’s built-in capabilities, such as -
 
-**Timers**: Functions like setTimeout() and setInterval() that let you run code after a specific delay or repeatedly at a set interval.
+**Timers**: Functions like setTimeout() and setInterval() that let you run code 'after a specific delay' or 'repeatedly at a set interval.'
 
 **DOM Manipulation**: Methods like document.querySelector() and addEventListener() that let you access, change, or interact with elements on a webpage.
 
 **Fetch API**: A way to make HTTP requests to get data from servers or send data to them.
 
-**Local Storage & Session Storage**: Browser-based storage that lets you save and retrieve data on the client side, even after refreshing the page (local storage) or during a single session (session storage).
+**Local Storage & Session Storage**: Local Storage keeps data even after a page refresh or browser restart, while Session Storage keeps data only for the current tab session.
 
-**Geolocation API**: Lets you get the geographical location of the user, like latitude and longitude.
+**Geolocation API**: Lets you get the geographical location of the user, like latitude & longitude.
 
-**Bluetooth API**: Allows your web app to discover and connect to nearby Bluetooth devices.
+**Bluetooth API**: Allows your web app to 'discover & connect' to nearby Bluetooth devices.
 
-**Canvas API**: Lets you draw and render graphics, images, and animations directly on the webpage using an HTML canvas element.
+**Canvas API**: Lets you draw and render graphics, images, and animations directly on the webpage using 'an HTML canvas element.'
 
 **WebSockets**: Enables real-time, two-way communication between the browser and a server, useful for live chat apps or data updates.
 
 **Notification API**: Allows the browser to display desktop notifications to the user.
 
-**Console API**: A Web API that provides methods to print messages and log information to the browser’s console.
+**Console API**: A Web API that provides methods to print messages and log information to the browser's console.
 
-None of the following are part of JavaScript itself! These are additional superpowers that the browser provides. The browser grants the JavaScript call stack access to these features.
+None of the following are part of JavaScript itself! These are additional superpowers that the browser provides. The browser grants the 'JavaScript call stack' access to these features.
 
 ![Event Loop 2 Demo](../assets/eventloop2.jpg)
 
@@ -68,7 +69,7 @@ For example, you can use the window keyword to call these functions, like: windo
 * **setTimeout(function cb() { console.log("Timer"); }, 5000);** - This calls the setTimeout() Web API, which gives access to the timer feature.
 
 * The Web API environment stores the callback function cb() and starts the 5-second timer.
-The setTimeout() itself finishes immediately and does not block the main thread.
+setTimeout() returns right away and doesn’t pause the main thread.
 
 * **console.log("End");** - This again calls the Console Web API to print "End" on the console.
 
@@ -86,7 +87,7 @@ Finally, the cb() function executes, printing "Timer" to the console.
 
 * The Event Loop continuously checks the Callback Queue to see if it contains any function that needs to be executed. Think of it as a gatekeeper.
 
-* Once the cb() function is in the Callback Queue, the Event Loop pushes it to the call stack when the stack is empty.
+* Once the cb() function is in the Callback Queue, the Event Loop pushes it to the call stack when the stack is empty.Inside the callback we have console statemnent.
 
 * Finally, the call stack connects with the Console API to log "timer" into the console window.
 
@@ -103,7 +104,7 @@ Finally, the cb() function executes, printing "Timer" to the console.
   
   }); 
   
-  // cb() gets registered inside the Web API environment, and the click event is attached to it. This means the callback is registered and the event is attached.
+  // cb() gets registered inside the Web API environment, and the click event is attached to it.
 
   console.log("End"); // Uses the console API to print "End" to  the console.
   
@@ -119,7 +120,7 @@ Finally, the cb() function executes, printing "Timer" to the console.
 
 * The Event Loop has just one job: it continuously monitors both the Callback Queue and the Call Stack. It acts like a gatekeeper. If it finds any code blocks or functions waiting in the callback queue, it pushes them one by one into the call stack for execution and removes them from the callback queue.
 
-* However, this only happens when the call stack is completely empty (i.e., no synchronous code is being executed).
+* However this only happens when the call-stack is completely empty (i.e. no synchronous code is being executed).
 
 # Need for callback/message queue?
 
@@ -184,12 +185,15 @@ Yes, synchronous callback functions (like those passed to map, filter, and reduc
 
 # 3. Does the Web API environment store only the callback function and push the same callback to the queue/microtask queue?
 
-Yes, the callback functions are stored, and a reference is added to the right queue. For event listeners (like click handlers), the original callbacks stay in the Web API environment forever. That’s why it’s a good idea to remove event listeners when you don’t need them anymore so the garbage collector can clean up.
+Yes, the callback functions are stored, and a reference is added to the right queue.The Web API does NOT copy the whole callback function into the queue.
+Instead, it just puts a pointer (a link) to that function. For event listeners (like click handlers), the original callbacks stay in the Web API environment forever. That’s why it’s a good idea to remove event listeners when you don’t need them anymore so the garbage collector can clean up.
 
 
 # 4. What happens if the delay for setTimeout() is set to 0ms?
 
-Even if you set the delay to 0 milliseconds, the callback function doesn’t move to the Callback Queue right away. It still has to wait for the Call Stack to be empty before being executed. This means that if the Call Stack is busy, the 0ms callback might end up waiting much longer.
+Even with a delay of 0ms, the callback does NOT run immediately.
+It is placed in the Callback Queue and waits until the call stack is empty.
+So if JavaScript Call stack is busy, the '0ms' callback can actually run later than 0ms.
 
 **How does it work?**
 
@@ -211,13 +215,13 @@ Callbacks from Promises (like fetch().then()) go to the Microtask Queue, which h
 
 **Mutation Observers**: These are used to monitor changes in the DOM. When a change occurs, the callback function goes into the Microtask Queue.
 
-**The Microtask Queue** has a higher priority than the Callback Queue (also known as the MacroTask Queue). If the Microtask Queue keeps adding new tasks, the Callback Queue may never get a chance to run. This problem is known as starvation. Examples of Callback Queue Tasks:Callbacks from setTimeout() and setInterval().Event listener callbacks (such as clicks or keyboard events)
+**The Microtask Queue** has a higher priority than the Callback Queue (also known as the MacroTask Queue). If the Microtask Queue keeps adding new tasks, the Callback Queue may never get a chance to run. This problem is known as starvation. Examples of Callback Queue Tasks: Callbacks from setTimeout() and setInterval().Event listener callbacks (such as clicks or keyboard events)
 
 **Observation of Eventloop, Callback Queue & Microtask Queue [**GiF**]**
 
 ![microtask 1 Demo](../assets/microtask1.gif)
 ![microtask 2 Demo](../assets/microtask2.gif)
-![microtask 3 Demo](../assets/microtask3.gif) (Needs to be rectified)
+![microtask 3 Demo](../assets/microtask3.gif) 
 ![microtask 4 Demo](../assets/microtask4.gif)
 ![microtask 5 Demo](../assets/microtask5.gif)
 ![microtask 6 Demo](../assets/microtask6.gif)
@@ -229,42 +233,53 @@ When JavaScript encounters asynchronous operations (like setTimeout, fetch, or D
 
 # 7. How Does fetch() Work?
 
-fetch("https://api.netflix.com").then(function cbF() {
-    console.log("CB Netflix");
-}); 
+```js
+
+
+
+
+fetch("https://api.netflix.com")
+  .then(function cbF(response) {
+      console.log("Response object:", response);
+  });
+
+```
 
 When you make a fetch() request, the following sequence of events takes place:
 
-**Initiating the Request:**
+Initiating the Request:
 
-The fetch() function sends an HTTP request to the server.
-The callback function (like cbF in your example) is stored in the Web API Environment while the request is being processed.
-The request is asynchronous, meaning the code execution doesn’t stop and continues to the next line.
+fetch() sends an HTTP request to the server.
+The .then() callback (cbF) is registered and kept by the Web API while the request is in progress.
+The request is asynchronous, so JavaScript continues executing the next lines without waiting.
 
-**Receiving the Response:**
+Receiving the Response:
 
-Once the server responds with data, the response object (like the fetched JSON) is stored in the Heap memory.
-The Web API Environment then moves the callback function (cbF) to the Microtask Queue, signaling that it is ready to be executed.
+When the server sends the response, the response object is created and stored in heap memory.
+The Web API then places a reference to the callback function (cbF) into the Microtask Queue (because .then() = microtask).
 
-**Executing the Callback:**
+Executing the Callback:
 
-The Event Loop continuously checks whether the Call Stack is empty.
-When the stack is empty, it picks the callback from the Microtask Queue and moves it to the Call Stack for execution.
-Inside the callback function, you access the response data stored in the Heap memory.
+The Event Loop checks whether the call stack is empty.
+When empty, it moves the callback from the Microtask Queue → Call Stack.
+The callback runs, and it can access the response object stored in the heap.
 
-**Key Points:**
+Key Points:
 
-The Web API Environment holds only the callback function reference while waiting for the response.
-The actual response data is stored in the Heap memory.
-Once the response is ready, the callback function is moved to the Microtask Queue.
-When executed, the callback function retrieves the data from the Heap memory.
+The Web API stores only a reference to the callback while waiting for the response.
+The response data itself lives in the heap memory, not in the queue.
+When the response arrives, the callback reference goes to the Microtask Queue.
+When executed, the callback reads the data directly from the heap.
 
 # 8. How Does setTimeout() Work?
+
+```js
 
 setTimeout(function cbT() { 
   console.log("CB Timeout");
 }, 5000);
 
+```
 When you use setTimeout(), the following sequence of events takes place:
 
 **Setting Up the Timer:**
@@ -294,19 +309,23 @@ Finally, the callback function (cbT) gets executed.
 **Key Points:**
 
 The Web API Environment only holds the callback function reference and the timer.
-The callback function moves to the Callback Queue only when the timer finishes.
+When the setTimeout timer finishes, the browser places a reference to the callback into the Callback Queue.
 If the Call Stack is busy, the callback will wait in the Callback Queue even after the timer ends.
-The Event Loop manages moving callbacks from the Callback Queue to the Call Stack when the stack is empty.
+The Event Loop moves callbacks from the Callback Queue to the Call Stack whenever the Call Stack is empty.
 
 
 
 # 9. How addEventListener() Works?
+
+```js
 
   document.getElementById("btn").addEventListener("click", function cb() {
 
   console.log("Callback"); // When the click event is triggered, this uses the console API to print "Callback" to the console.
   
   });
+
+```
 
 **Setting Up the Listener:**
 
@@ -326,7 +345,7 @@ The Event Loop constantly checks if the Call Stack is empty. Once it’s empty, 
 
 **Executing the Callback:**
 
-The callback function gets executed, and it can access the event object directly from the Heap memory. After execution, the callback is removed from the Call Stack, and the Heap memory occupied by the event object is cleared if no longer needed.
+The callback executes and accesses the event object. After the callback finishes, the event object becomes eligible for garbage collection if no references remain. The actual memory cleanup happens later when the garbage collector runs.
 
 
 # 10 . How does the console Web API work?
@@ -337,7 +356,7 @@ The console object is a built-in Web API provided by the browser that allows dev
 
 **When You Use console.log():**
 
-When you call a method like console.log("Hello World"), the function call is placed on the Call Stack.
+When you use console.log(),The function call console.log() enters the Call Stack.
 The console.log() method itself is a synchronous operation. It immediately prints the message to the console without waiting for any asynchronous tasks.
 
 **Behind the Scenes:**
@@ -369,17 +388,15 @@ This is because Microtasks (like Promises and Mutation Observers) are considered
 
 **Temporary Memory:**
 
-The browser allocates some temporary memory to hold the log messages.This memory is managed internally by the DevTools and is not part of your script’s memory.
-
-**Browser's DevTools Buffer:**
-
+The browser allocates some temporary memory to hold the log messages.This memory is managed internally by the DevTools and is not part of JS memory.
 The console messages are stored in a buffer that is maintained as long as the DevTools are open or until the page is refreshed.
 When you reload the page, the console logs are typically cleared unless you enable the "Preserve log" option in DevTools.
 
 
 **Internal Implementation:**
 
-The exact way logs are stored can vary between browsers, but generally, they are kept in a circular buffer.This means that after reaching a certain limit, older logs are discarded to make room for new ones.
+The exact way logs are stored can vary between browsers, but generally, they are kept in a circular buffer.
+This means that after reaching a certain limit, older logs are discarded to make room for new ones.
 
 
 **Note:** The Callback Queue is also known as the MacroTask Queue or simply the Task Queue. 

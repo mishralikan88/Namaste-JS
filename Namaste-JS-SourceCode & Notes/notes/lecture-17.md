@@ -2,7 +2,7 @@
 
 # Does setTimeout() Always Execute After the Given Time?
 
--> No! Contrary to popular belief, setting a timer for 5 seconds using setTimeout() does not guarantee that the callback function will execute exactly after 5 seconds. It might take longer—6, 7, or even 10 seconds. The actual execution time depends on the call stack.
+-> No! Contrary to popular belief, setting a timer for 5 seconds using setTimeout() does not guarantee that the callback function will execute exactly after 5 seconds. It might take longer 6, 7, or even 10 seconds. The actual execution time depends on the call stack.
 
 **Let's Look at an Example**
 
@@ -26,7 +26,9 @@
     End  
     Callback  
 
-The Callback does not necessarily execute exactly after 5 seconds. Sometimes it might take longer. But why does this happen?
+The Callback does not necessarily execute exactly after 5 seconds. 
+
+Sometimes it might take longer. But why does this happen ?
 
 
 **Reason?**
@@ -79,7 +81,7 @@ The Callback does not necessarily execute exactly after 5 seconds. Sometimes it 
 
 -> Even when the timer is set to 0 seconds, the callback function still has to go through the event queue. The callback is first registered in the Web API environment, then moved to the callback queue, and finally executed once the call stack is empty.
 
--> Setting the timer to 0 seconds can be useful to defer a less important function so that a more important one (like printing "End" in this case) can execute first.
+-> Setting the timer to 0 seconds can be useful to **defer** a less important function so that a more important one (like printing "End" in this case) can execute first.
 
 
 **Notes** 
@@ -87,8 +89,6 @@ The Callback does not necessarily execute exactly after 5 seconds. Sometimes it 
 -> The first rule of JavaScript: Do not block the main thread (since JavaScript is a single-threaded language with only one call stack). Avoid making the call stack run indefinitely or take an excessive amount of time to complete.
 
 -> The setTimeout function guarantees that the callback will take at least the specified time to execute, but not necessarily exactly that time.
-
-* JavaScript is a synchronous, single-threaded language, meaning it runs code sequentially using just one thread. It works like an interpreted language, executing code quickly inside the browser without waiting for compilation (thanks to JIT - Just-In-Time compilation). However, there are still ways to perform asynchronous operations.
  
 
 # Blocking the main thread
@@ -148,7 +148,7 @@ while (endDate < startDate + 10000) {  // Run for approximately 10 seconds
 **What Makes This Code Blocking?**
 
 Synchronous Execution:
--> The while loop runs synchronously on the main thread, meaning it does not yield control to other tasks.
+-> The while loop runs synchronously on the main thread, meaning it does not return control to other tasks.
 -> The entire loop is executed without giving any break, so no other code (like callbacks) can be executed during this time.
 
 Continuous Execution:
